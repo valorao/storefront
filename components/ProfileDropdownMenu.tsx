@@ -15,7 +15,7 @@ export default function ProfileDropdownMenu() {
     const { setTheme } = useTheme();
     if (session) {
         return (
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild className="cursor-pointer">
                     <Avatar>
                         <AvatarImage className="object-cover" src={session.user?.image ?? ""} />

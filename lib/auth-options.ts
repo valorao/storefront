@@ -81,7 +81,6 @@ const unifiedProvider: OAuthConfig<any> = {
     clientSecret: process.env.UNIFIED_SECRET!,
     checks: ['state'],
     profile: (profile: Profile): CustomUserProfile => {
-        console.log(profile)
         return {
             id: profile.userInfo.id.toString(),
             name: profile.userInfo.name,
@@ -99,7 +98,6 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async session({ session, token }: { session: Session; token: JWT }): Promise<Session> {
-            console.log(session, token)
             const customSession = session as CustomSession;
             const customToken = token as CustomJWT;
 

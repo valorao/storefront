@@ -11,7 +11,7 @@ export default async function storefrontFromServer() {
     return (
         <div>
             <div>
-                API Route From <span className="font-bold underline">Server</span>
+                <span className="font-bold underline">Storefront API Response (SSR RENDERED):</span>
             </div>
             <pre>{JSON.stringify(resp, null, 2)}</pre>
         </div>

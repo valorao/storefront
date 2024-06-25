@@ -25,22 +25,26 @@ export default async function RootLayout({
   const session = await getServerSession();
 
   return (
-    <html lang="en">
-      <body className={cn(
-        "min-h-screen min-w-full bg-background font-sans antialiased",
-        inter.variable
-      )}><SessionProvider session={session}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <NavMenu />
-            {children}
-          </ThemeProvider>
-        </SessionProvider>
-      </body>
-    </html >
+    <>
+      <html lang="en">
+        <body className={cn(
+          "min-h-screen !min-w-full overflow-y-scroll bg-background font-sans antialiased w-screen overflow-x-hidden",
+          inter.variable
+        )}><SessionProvider session={session}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <NavMenu />
+              <div className="md:mt-16 md:mb-10">
+                {children}
+              </div>
+            </ThemeProvider>
+          </SessionProvider>
+        </body>
+      </html >
+    </>
   );
 }
