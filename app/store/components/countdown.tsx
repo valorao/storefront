@@ -38,7 +38,7 @@ export default function CountdownPage() {
     }
 
     return (
-        <div className="flex items-center text-center gap-1 justify-center mb-5">
+        <div className="flex items-center text-center gap-1 justify-center m-5">
             <Clock />
             <h1 className="text-2xl font-bold text-center justify-center">
                 Atualiza em: {`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}

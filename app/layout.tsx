@@ -27,7 +27,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={cn(
-        "min-h-screen bg-background font-sans antialiased",
+        "min-h-screen min-w-full bg-background font-sans antialiased",
         inter.variable
       )}><SessionProvider session={session}>
           <ThemeProvider

@@ -7,9 +7,9 @@ import LoginBtn from "./ClientActions";
 import ItemCSRBtn from "./ItemCSR";
 
 async function getStorefront() {
-    const resp = await fetch("http://localhost:3000/api/storefront", {
+    const resp = await fetch(`${process.env.NEXTAUTH_URL}/api/storefront`, {
         method: "GET",
-        headers: headers(),
+        headers: new Headers(headers()),
     })
         .then((res) => res.json());
     const items = resp.data.items;
@@ -36,25 +36,26 @@ export default async function Item() {
         )
     }
     return (
-        <div className="flex flex-col gap-5 m-[-5%] md:flex-row md:m-0">
+        <div className="flex flex-col gap-5 md:flex-row md:m-0 w-auto h-auto p-4 mb-20">
             {storefront.map((item: any) => (
                 <div
                     key={item.offerID}
-                    className={`md:w-1/4 border rounded-lg p-5 relative bg-white bg-opacity-5`}>
+                    className="md:w-1/4 h-full border rounded-lg p-5 pb-2 relative bg-white bg-opacity-5 max-h-[200px] flex flex-col justify-between">
                     <div className="relative z-10 w-full h-full flex flex-col">
                         <ItemCSRBtn item={item} className="h-full w-full">
-                            <div className="relative z-10 w-full h-full flex flex-col">
+                            <div className="relative z-10 w-full">
                                 <Image
                                     src={item.weaponInfo.displayIcon}
-                                    width={1500}
+                                    width={1300}
                                     height={800}
                                     alt="Featured Skin Image"
+                                    className="min-h-full max-h-[100px]"
                                     draggable={false}
-                                    style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+                                    style={{ objectFit: 'contain', width: '100%', height: '100px' }}
                                 />
-                                <div className="flex mt-5 text-center justify-center text-xl text-nowrap font-semibold">
-                                    <div className="text-container flex items-center justify-center" style={{ height: '5px' }}>
-                                        <h1 className="">{item.weaponInfo.displayName}</h1>
+                                <div className="flex mt-5 text-start justify-center text-xl font-semibold text-wrap break-words">
+                                    <div className="text-wrap flex items-center justify-center break-words">
+                                        <h1 className="break-words">{item.weaponInfo.displayName}</h1>
                                         <div className="flex items-center text-center gap-1 ml-10">
                                             <VPIcon className="w-5 h-5" />
                                             <p>{item.cost}</p>
@@ -71,6 +72,7 @@ export default async function Item() {
                             height={256}
                             objectFit="contain"
                             alt="Content Tier Image"
+                            className="opacity-40"
                             draggable={false}
                         />
                     </div>

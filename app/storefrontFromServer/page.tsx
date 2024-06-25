@@ -1,11 +1,13 @@
 import { headers } from "next/headers";
 
-export default async function storefrontFromServer() { 
-    const resp = await fetch("http://localhost:3000/api/storefront", {
+
+export default async function storefrontFromServer() {
+    const resp = await fetch(`${process.env.NEXTAUTH_URL}/api/storefront`, {
         method: "GET",
-        headers: headers(),
+        headers: new Headers(headers()),
     })
-    .then((res) => res.json());
+        .then((res) => res.json());
+    console.log(resp)
 
     return (
         <div>
