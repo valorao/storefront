@@ -7,14 +7,13 @@ export default async function storefrontFromServer() {
         headers: new Headers(headers()),
     })
         .then((res) => res.json());
-    console.log(resp)
 
     return (
         <div>
             <div>
                 API Route From <span className="font-bold underline">Server</span>
             </div>
-            <div>Name: {JSON.stringify(resp)}</div>
+            <pre>{JSON.stringify(resp, null, 2)}</pre>
         </div>
     )
 }
