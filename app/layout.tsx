@@ -30,17 +30,15 @@ export default async function RootLayout({
         "min-h-screen bg-background font-sans antialiased",
         inter.variable
       )}><SessionProvider session={session}>
-          <main className="md:mb-0 mb-16">
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <NavMenu />
-              {children}
-            </ThemeProvider>
-          </main>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NavMenu />
+            {children}
+          </ThemeProvider>
         </SessionProvider>
       </body>
     </html >

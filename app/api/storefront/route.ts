@@ -11,6 +11,5 @@ export const GET = async () => {
         },
     });
     const data = await response.json();
-    // Correctly return a NextResponse object
     return NextResponse.json({ data: data || 'Not logged in' });
 };

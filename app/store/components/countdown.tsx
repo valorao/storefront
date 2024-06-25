@@ -1,4 +1,5 @@
 "use client";
+import { Clock, LoaderCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function CountdownPage() {
@@ -25,12 +26,24 @@ export default function CountdownPage() {
     const minutes = Math.floor((remainingTime % 3600) / 60);
     const seconds = remainingTime % 60;
 
-    // Render loading message if remainingTime is not set or countdown has ended
     if (remainingTime <= 0) {
-        return "carregando...";
+        return (
+            <div className="flex items-center text-center gap-1 justify-center mb-5">
+                <h1 className="text-2xl font-bold text-center justify-center">
+                    Atualiza em:
+                </h1>
+                <LoaderCircle className='animate-spin' />
+            </div>
+        );
     }
 
     return (
-        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+        <div className="flex items-center text-center gap-1 justify-center mb-5">
+            <Clock />
+            <h1 className="text-2xl font-bold text-center justify-center">
+                Atualiza em: {`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}
+            </h1>
+        </div>
+
     );
 }

@@ -1,9 +1,8 @@
-import NextAuth from "next-auth/next";
-import GitHubProvider from "next-auth/providers/github";
+import NextAuth from "next-auth";
 import { OAuthConfig } from "next-auth/providers/oauth";
 import { NextAuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
-import { Session } from "next-auth";
+import { Session, User } from "next-auth";
 
 interface UserInfo {
     id: number;
@@ -22,23 +21,31 @@ interface Profile {
     valorantIntegration: ValorantIntegration;
 }
 
-interface CustomUserProfile {
-    id: string;
-    name: string;
-    email: string;
-    image: string;
+interface CustomUserProfile extends User {
     valorantToken: string;
     valorantPuuid: string;
+}
+
+interface CustomSession extends Session {
+    user: CustomUserProfile;
+}
+
+interface CustomJWT extends JWT {
+    id?: string;
+    valorantToken?: string;
+    valorantPuuid?: string;
+    exp?: number;
+    initialLoginTime?: number;
 }
 
 const unifiedProvider: OAuthConfig<any> = {
     id: 'unified',
     name: 'Unified',
-    style: { logo: "https://d1lnimbb3nut4m.cloudfront.net/unified-logo/svg/unified-logo-white.svg", bg: "#24292f", text: "#fff", },
+    style: { logo: "https://d1lnimbb3nut4m.cloudfront.net/unified-logo/svg/unified-logo-white.svg", bg: "#24292f", text: "#fff" },
     version: '2.0',
     type: 'oauth',
     authorization: {
-        url: 'http://10.1.1.17:3004/login',
+        url: 'https://oauth.rtrampox.cloud/login',
         params: { scope: "valorant" },
     },
     token: {
@@ -51,7 +58,7 @@ const unifiedProvider: OAuthConfig<any> = {
                 redirect_uri: context.provider.callbackUrl!,
             });
 
-            const response = await fetch('http://10.1.1.17:3004/token', {
+            const response = await fetch('https://oauth.rtrampox.cloud/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -70,7 +77,7 @@ const unifiedProvider: OAuthConfig<any> = {
             };
         },
     },
-    userinfo: 'http://10.1.1.17:3004/userinfo',
+    userinfo: 'https://oauth.rtrampox.cloud/api/login',
     clientId: process.env.UNIFIED_ID!,
     clientSecret: process.env.UNIFIED_SECRET!,
     checks: ['state'],
@@ -86,68 +93,50 @@ const unifiedProvider: OAuthConfig<any> = {
     },
 };
 
-interface User {
-    id: string;
-    valorantToken?: string;
-    valorantPuuid?: string;
-    // Allow name, email, and image to be null or undefined
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-}
 
-interface CustomSession extends Session {
-    user: User;
-}
-
-interface CustomJWT extends JWT {
-    id?: string;
-    valorantToken?: string;
-    valorantPuuid?: string;
-}
-
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
     providers: [
         unifiedProvider,
-        // GitHubProvider({
-        //     clientId: process.env.GITHUB_ID ?? "",
-        //     clientSecret: process.env.GITHUB_SECRET ?? "",
-        // }),
     ],
     callbacks: {
-        async session({ session, token }: any): Promise<Session> {
-            session.user = session.user ?? {};
-            session.user.id = token.id ?? '';
-            session.user.valorantToken = token.valorantToken;
-            session.user.valorantPuuid = token.valorantPuuid;
-            session.user.image = token.image;
+        async session({ session, token }: { session: Session; token: JWT }): Promise<Session> {
+            const customSession = session as CustomSession;
+            const customToken = token as CustomJWT;
 
-            if (token.exp) {
-                session.expires = Math.floor(Date.now() / 1000) + 3600;
+            customSession.user.id = customToken.id ?? '';
+            customSession.user.valorantToken = customToken.valorantToken ?? '';
+            customSession.user.valorantPuuid = customToken.valorantPuuid ?? '';
+
+            if (customToken.exp) {
+                customSession.expires = new Date(customToken.exp * 1000).toISOString();
             }
-            if (token.initialLoginTime) {
-                session.expires = token.initialLoginTime + 3600;
-            }
-            return session as Session;
+
+            return customSession;
         },
-        async jwt({ token, user, account, isNewUser }: any): Promise<JWT> {
+        async jwt({ token, user, account, isNewUser }: { token: JWT; user?: User; account?: any; isNewUser?: boolean }): Promise<JWT> {
+            const customToken = token as CustomJWT;
+
             if (user) {
-                token.id = user.id;
-                token.valorantToken = user.valorantToken;
-                token.valorantPuuid = user.valorantPuuid;
-                token.image = user.image;
+                customToken.id = user.id;
+                customToken.valorantToken = (user as CustomUserProfile).valorantToken;
+                customToken.valorantPuuid = (user as CustomUserProfile).valorantPuuid;
             }
-            if (account?.accessTokenExpires) {
-                token.exp = Math.floor(new Date(account.accessTokenExpires).getTime() / 1000);
+
+            if (!customToken.initialLoginTime) {
+                customToken.initialLoginTime = Math.floor(Date.now() / 1000);
+                customToken.exp = customToken.initialLoginTime + 3600;
             }
-            if (isNewUser || !token.initialLoginTime) {
-                token.initialLoginTime = Math.floor(Date.now() / 1000);
-            }
-            return token;
+
+            return customToken;
         },
+    },
+    session: {
+        strategy: 'jwt',
+    },
+    jwt: {
+        maxAge: 3600,
     },
 };
 
-export const handler = NextAuth(authOptions);
-
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
