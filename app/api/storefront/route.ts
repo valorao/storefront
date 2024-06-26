@@ -11,8 +11,9 @@ export const GET = async () => {
         },
     });
     console.log(response, session)
-    if (response.ok) {
-        const data = await response.json();
+    const data = await response.json();
+    console.log(data)
+    if (data.items) {
         return NextResponse.json({ data: data || 'Not logged in' });
     } else {
         return NextResponse.json({ status: response.status, data: 'Not logged in' })
