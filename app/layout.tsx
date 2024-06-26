@@ -28,7 +28,7 @@ export default async function RootLayout({
     <>
       <html lang="en">
         <body className={cn(
-          "min-h-screen !min-w-full overflow-y-scroll bg-background font-sans antialiased w-screen overflow-x-hidden",
+          "min-h-screen max-w-full overflow-y-scroll bg-background font-sans antialiased w-screen overflow-x-hidden",
           inter.variable
         )}><SessionProvider session={session}>
             <ThemeProvider
@@ -38,7 +38,7 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
               <NavMenu />
-              <div className="md:mt-16 md:mb-10">
+              <div className="md:mt-16 md:mb-15 mb-16">
                 {children}
               </div>
             </ThemeProvider>

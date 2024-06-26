@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import * as React from "react"
-import { ShoppingCart } from "lucide-react"
 import ProfileDropdownMenu from "./ProfileDropdownMenu";
 import { Button } from "./ui/button";
 

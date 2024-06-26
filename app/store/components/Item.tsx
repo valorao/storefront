@@ -19,7 +19,6 @@ export default async function Item() {
     const session = await getServerSession();
     const GetStorefront = await getStorefront();
     const storefront = GetStorefront.data.items;
-    console.log(session)
     if (!session) {
         return (
             <div className="flex items-center text-center justify-center p-5 md:h-5 h-5 w-full font-bold text-2xl">
@@ -37,30 +36,30 @@ export default async function Item() {
         )
     }
     return (
-        <div className="flex flex-col gap-5 md:flex-row md:m-0 w-auto h-auto p-4 mb-20">
+        <div className="flex flex-col gap-5 md:flex-row md:m-0 w-auto h-auto">
             {storefront.map((item: any) => (
                 <div
                     key={item.offerID}
-                    className="md:w-1/4 h-full border rounded-lg p-5 pb-2 relative bg-white bg-opacity-5 max-h-[200px] flex flex-col justify-between">
+                    className="md:w-1/4 h-[190px] border rounded-lg p-5 pb-1 relative dark:bg-white dark:bg-opacity-5 flex flex-col justify-between">
                     <div className="relative z-10 w-full h-full flex flex-col">
                         <ItemCSRBtn item={item} className="h-full w-full">
-                            <div className="relative z-10 w-full">
+                            <div className="relative z-10 w-full m-0 p-0">
                                 <Image
                                     src={item.weaponInfo.displayIcon}
                                     width={1300}
                                     height={800}
                                     alt="Featured Skin Image"
-                                    className="min-h-full max-h-[100px]"
+                                    className="min-h-full m-0 p-0 max-h-[100px] max-w-[330px]"
                                     draggable={false}
-                                    style={{ objectFit: 'contain', width: '100%', height: '100px' }}
+                                    style={{ objectFit: 'contain', width: '300px', height: '100px' }}
                                 />
-                                <div className="flex mt-5 text-start justify-center text-xl font-semibold text-wrap break-words">
-                                    <div className="text-wrap flex items-center justify-center break-words">
-                                        <h1 className="break-words">{item.weaponInfo.displayName}</h1>
-                                        <div className="flex items-center text-center gap-1 ml-10">
-                                            <VPIcon className="w-5 h-5" />
-                                            <p>{item.cost}</p>
-                                        </div>
+                                <div className="flex justify-between flex-row mt-3 text-xl font-semibold">
+                                    <div>
+                                        <h1 className="text-slate-200 text-xl font-semibold break-words text-left">{item.weaponInfo.displayName}</h1>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                        <VPIcon className="w-5 h-5" />
+                                        <p>{item.cost}</p>
                                     </div>
                                 </div>
                             </div>
