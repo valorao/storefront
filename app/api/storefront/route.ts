@@ -10,7 +10,7 @@ export const GET = async () => {
             'Authorization': `Bearer ${(session?.user as { valorantToken?: string })?.valorantToken}`
         },
     });
-    console.log(response, session)
+    console.log((await response), session)
     const data = await response.json();
     console.log(data)
     if (data.items) {
