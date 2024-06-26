@@ -7,19 +7,19 @@ import LoginBtn from "./ClientActions";
 import ItemCSRBtn from "./ItemCSR";
 
 async function getStorefront() {
-    const resp = await fetch(`${process.env.NEXTAUTH_URL}/api/storefront`, {
+    const resp = await fetch(`${process.env.NEXTAUTH_URL || process.env.VERCEL}/api/storefront`, {
         method: "GET",
         headers: new Headers(headers()),
     })
         .then((res) => res.json());
-    const items = resp.data.items;
-    return items || null;
+    return resp || null;
 }
 
 export default async function Item() {
     const session = await getServerSession();
-    const storefront = await getStorefront();
-    console.log(session, storefront)
+    const GetStorefront = await getStorefront();
+    const storefront = GetStorefront.data.items;
+    console.log(session)
     if (!session) {
         return (
             <div className="flex items-center text-center justify-center p-5 md:h-5 h-5 w-full font-bold text-2xl">
