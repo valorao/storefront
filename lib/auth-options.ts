@@ -98,6 +98,7 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async redirect({ url, baseUrl }) {
+            if (url.startsWith('/')) return `${baseUrl}${url}`
             if (url.startsWith('/unified-logout')) return `https://oauth.rtrampox.cloud/api/logout?redirect_uri=${baseUrl}`
             else if (new URL(url).origin === baseUrl) return url
             return baseUrl

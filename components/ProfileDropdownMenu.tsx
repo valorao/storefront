@@ -11,7 +11,7 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react";
 
 function logoutUser() {
-    signOut({ redirect: true, callbackUrl: "https://oauth.rtrampox.cloud/api/logout?redirect_uri=https://valorao.cloud" })
+    signOut({ redirect: true, callbackUrl: "/unified-logout" })
 }
 
 export default function ProfileDropdownMenu() {
