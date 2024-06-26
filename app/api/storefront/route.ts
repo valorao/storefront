@@ -10,19 +10,19 @@ export const GET = async () => {
             headers: {
                 'Authorization': `Bearer ${(session?.user as { valorantToken?: string })?.valorantToken}`
             },
-            next: { revalidate: 1800 }
+            next: { revalidate: 300 }
         });
         if (!response.ok) {
             throw new Error('There was an error while fetching data.');
         }
-        if (response.status === 502) return NextResponse.json({ status: 502 });
+        if (response.status === 502) return NextResponse.json({ status: 502 }, { status: response.status });
         const data = await response.json();
         if (data.items) {
-            return NextResponse.json({ data: data || 'Not logged in' });
+            return NextResponse.json({ data: data || 'Not logged in' }, { status: response.status });
         } else {
-            return NextResponse.json({ status: response.status, data: 'Not logged in' });
+            return NextResponse.json({ status: response.status, data: 'Not logged in' }, { status: response.status });
         }
     } else {
-        return NextResponse.json({ status: 400, data: 'Not logged in' });
+        return NextResponse.json({ status: 400, data: 'Not logged in' }, { status: 400 });
     }
 };

@@ -1,4 +1,5 @@
 "use client";
+import { Spinner } from '@/components/ui/spinner';
 import { Clock, LoaderCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -27,11 +28,8 @@ export default function CountdownPage() {
     const seconds = remainingTime % 60;
     if (remainingTime <= 0) {
         return (
-            <div className="flex items-center text-center gap-1 justify-center mb-5">
-                <h1 className="text-2xl font-bold text-center justify-center">
-                    Atualiza em:
-                </h1>
-                <LoaderCircle className='animate-spin' />
+            <div className="flex items-center text-center gap-1 justify-center m-5">
+                <Spinner />
             </div>
         );
     }

@@ -4,8 +4,18 @@ import Item from "./components/Item";
 import { Suspense } from "react";
 import { LoaderCircle } from "lucide-react";
 import ShineBorder from "@/components/magicui/shine-border";
+import { Spinner } from "@/components/ui/spinner";
 
-export default function storefront() {
+export default async function storefront() {
+    const bundles = await fetch(`${process.env.NEXTAUTH_URL}/api/storefront/bundles`, {
+        method: "GET",
+    })
+        .then((res) => res.json());
+
+    const bundleImg = await fetch(`https://valorant-api.com/v1/bundles/${bundles.data.data[0].bundle_uuid}`, {
+        method: "GET",
+    }).then((res) => res.json());
+
     return (
         <div className="flex flex-col max-w-full justify-center items-center text-center">
             <div className=" w-full h-full flex flex-col">
@@ -21,7 +31,7 @@ export default function storefront() {
                             color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
                         >
                             <Image
-                                src="https://media.valorant-api.com/bundles/3d580e29-435b-8e65-22f4-3c8b8974f5fd/displayicon2.png"
+                                src={bundleImg.data.displayIcon}
                                 width={1648}
                                 height={804}
                                 alt="Featured Bundle Image"
@@ -37,7 +47,7 @@ export default function storefront() {
                 <div>
                     <Suspense fallback={
                         <div className="flex items-center justify-center md:h-40 h-20 w-full">
-                            <LoaderCircle className="animate-spin w-10 h-10" />
+                            <Spinner className="w-10 h-10" />
                         </div>
                     }>
                         <div>
