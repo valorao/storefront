@@ -13,7 +13,7 @@ import { redirect } from "next/navigation";
 
 function logoutUser() {
     signOut()
-    redirect('https://rso.rtrampox.cloud/api/logout?redirect_uri=https://valorao.cloud')
+    redirect('https://oauth.rtrampox.cloud/api/logout?redirect_uri=https://valorao.cloud')
 }
 
 export default function ProfileDropdownMenu() {
