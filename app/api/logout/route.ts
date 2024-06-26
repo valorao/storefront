@@ -1,5 +1,6 @@
-import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
 export const GET = () => {
-    redirect('https://oauth.rtrampox.cloud/api/logout?redirect_uri=https://valorao.cloud')
+    return NextResponse.redirect('https://oauth.rtrampox.cloud/api/logout?redirect_uri=https://valorao.cloud/store');
+
 }

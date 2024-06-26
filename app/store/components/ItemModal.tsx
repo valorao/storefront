@@ -1,8 +1,8 @@
 "use client";
 import VPIcon from "./valorant-points-image";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button";
 import { Dispatch, SetStateAction } from "react";
+import { Credenza, CredenzaClose, CredenzaContent, CredenzaDescription, CredenzaFooter, CredenzaHeader, CredenzaTitle } from "@/components/ui/credenza";
 
 type ItemDialogProps = {
     dialogSize: string;
@@ -34,26 +34,26 @@ export default function ItemDialog({ dialogSize, itemPrice, itemTitle, itemVideo
 
     return (
         <>
-            <Dialog open={isDialogOpen} onOpenChange={setDialogOpen} >
-                <DialogContent className={dialogSize}>
-                    <DialogHeader>
-                        <DialogTitle className="mb-5" >
+            <Credenza open={isDialogOpen} onOpenChange={setDialogOpen} >
+                <CredenzaContent className={dialogSize}>
+                    <CredenzaHeader>
+                        <CredenzaTitle className="mb-5" >
                             <div className="flex items-center text-center gap-1 justify-start mt-3 ml-2" >
                                 {itemTitle} -
                                 <VPIcon className="w-5 h-5" />  <p className="text-white" >{itemPrice}</p>
                             </div>
-                        </DialogTitle>
-                        <DialogDescription>
+                        </CredenzaTitle>
+                        <CredenzaDescription>
                             {videoPlayer}
-                        </DialogDescription>
-                    </DialogHeader>
-                    <DialogFooter>
-                        <DialogClose>
+                        </CredenzaDescription>
+                    </CredenzaHeader>
+                    <CredenzaFooter>
+                        <CredenzaClose>
                             <Button variant="link" >fechar</Button>
-                        </DialogClose>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+                        </CredenzaClose>
+                    </CredenzaFooter>
+                </CredenzaContent>
+            </Credenza>
         </>
     )
 }

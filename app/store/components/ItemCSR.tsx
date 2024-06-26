@@ -11,7 +11,7 @@ export default function ItemCSRBtn({ item, className, children }: { item: any; c
                 {children}
             </button>
             <ItemDialog
-                dialogSize="md:max-w-[700px] mt-5 w-[90%]"
+                dialogSize="md:max-w-[700px]"
                 itemPrice={item.cost}
                 itemTitle={item.weaponInfo.displayName}
                 itemVideoPreview={item.weaponInfo.streamedVideo}
