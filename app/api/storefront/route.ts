@@ -10,12 +10,14 @@ export const GET = async () => {
             'Authorization': `Bearer ${(session?.user as { valorantToken?: string })?.valorantToken}`
         },
     });
-    console.log(response.status)
-    if (response.status === 502) return NextResponse.json({ status: 502 })
+    if (!response.ok) {
+        throw new Error('There was an error while fetching data.');
+    }
+    if (response.status === 502) return NextResponse.json({ status: 502 });
     const data = await response.json();
     if (data.items) {
         return NextResponse.json({ data: data || 'Not logged in' });
     } else {
-        return NextResponse.json({ status: response.status, data: 'Not logged in' })
+        return NextResponse.json({ status: response.status, data: 'Not logged in' });
     }
 };
