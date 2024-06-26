@@ -25,7 +25,6 @@ export default function CountdownPage() {
     const hours = Math.floor(remainingTime / 3600);
     const minutes = Math.floor((remainingTime % 3600) / 60);
     const seconds = remainingTime % 60;
-    console.log(remainingTime, `${hours}:${minutes}${seconds}`)
     if (remainingTime <= 0) {
         return (
             <div className="flex items-center text-center gap-1 justify-center mb-5">
