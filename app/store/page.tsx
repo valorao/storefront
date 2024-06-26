@@ -6,6 +6,10 @@ import { LoaderCircle } from "lucide-react";
 import ShineBorder from "@/components/magicui/shine-border";
 import { Spinner } from "@/components/ui/spinner";
 
+export const metadata = {
+    title: 'Loja - valorao',
+}
+
 export default async function storefront() {
     const bundles = await fetch(`${process.env.NEXTAUTH_URL}/api/storefront/bundles`, {
         method: "GET",

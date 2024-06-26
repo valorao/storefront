@@ -1,4 +1,8 @@
 
+export const metadata = {
+    title: 'dev - valorao',
+}
+
 export default async function StoreFrontBundles() {
     const resp = await fetch(`${process.env.NEXTAUTH_URL}/api/storefront/bundles`, {
         method: "GET",

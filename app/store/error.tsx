@@ -3,6 +3,10 @@
 import { Button } from '@/components/ui/button'
 import { useEffect } from 'react'
 
+export const metadata = {
+    title: 'Ocorreu um erro - valorao',
+}
+
 export default function Error({
     error,
     reset,
