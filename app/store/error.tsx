@@ -15,8 +15,8 @@ export default function Error({
     }, [error])
 
     return (
-        <div className="w-full h-full justify-center items-center text-center flex flex-row">
-            <h2>Algo deu errado!</h2>
+        <div className="w-full h-full justify-center items-center text-center flex flex-col gap-3">
+            <h1 className="font-bold text-xl">Algo deu errado!</h1>
             <Button
                 variant="gooeyLeft"
                 onClick={
