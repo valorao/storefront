@@ -38,7 +38,7 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
               <NavMenu />
-              <div className="md:mt-16 md:mb-15 mb-16">
+              <div vaul-drawer-wrapper="" className="md:mt-16 md:mb-15 mb-16">
                 {children}
               </div>
             </ThemeProvider>
