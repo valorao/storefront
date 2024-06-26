@@ -9,6 +9,12 @@ import {
     DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { signIn, signOut, useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+
+function logoutUser() {
+    signOut()
+    redirect('https://rso.rtrampox.cloud/api/logout?redirect_uri=https://valorao.cloud')
+}
 
 export default function ProfileDropdownMenu() {
     const { data: session } = useSession();
@@ -60,7 +66,7 @@ export default function ProfileDropdownMenu() {
                         </DropdownMenuSubContent>
                     </DropdownMenuSub>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
+                    <DropdownMenuItem onClick={() => logoutUser()} className="cursor-pointer">
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>Sair da conta</span>
                     </DropdownMenuItem>
