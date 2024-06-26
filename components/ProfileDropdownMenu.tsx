@@ -11,7 +11,7 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react";
 
 function logoutUser() {
-    signOut({ redirect: true, callbackUrl: "/api/logout" })
+    signOut({ redirect: true, callbackUrl: "/logout" })
 }
 
 export default function ProfileDropdownMenu() {
