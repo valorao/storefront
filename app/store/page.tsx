@@ -3,7 +3,6 @@ import CountdownPage from "./components/countdown";
 import Item from "./components/Item";
 import { Suspense } from "react";
 import { LoaderCircle } from "lucide-react";
-import { BorderBeam } from "@/components/magicui/border-beam";
 import ShineBorder from "@/components/magicui/shine-border";
 
 export default function storefront() {

@@ -9,7 +9,7 @@ export default function CountdownPage() {
         const today9pm = new Date(now);
         today9pm.setHours(21, 0, 0, 0);
         const timeDifference = today9pm.getTime() - now.getTime();
-        if (timeDifference > 0) { // Only set remaining time if it's positive
+        if (timeDifference > 0) {
             setRemainingTime(Math.floor(timeDifference / 1000));
         }
     }, []);

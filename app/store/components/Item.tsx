@@ -27,7 +27,7 @@ export default async function Item() {
             </div>
         )
     }
-    if (!storefront) {
+    if (!storefront || !storefront.items || !storefront.items === null) {
         return (
             <div className="flex items-center text-center justify-center md:h-5 h-5 w-full font-bold text-2xl">
                 <ShieldAlert className="w-10 h-10 mr-2" /> Faça login para visualizar sua loja.
