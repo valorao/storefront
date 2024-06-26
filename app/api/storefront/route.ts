@@ -9,6 +9,7 @@ export const GET = async () => {
         headers: {
             'Authorization': `Bearer ${(session?.user as { valorantToken?: string })?.valorantToken}`
         },
+        next: { revalidate: 1800 }
     });
     if (!response.ok) {
         throw new Error('There was an error while fetching data.');
