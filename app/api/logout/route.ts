@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function logout() {
+export const GET = () => {
     redirect('https://oauth.rtrampox.cloud/api/logout?redirect_uri=https://valorao.cloud')
 }
