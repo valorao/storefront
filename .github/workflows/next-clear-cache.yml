@@ -1,0 +1,15 @@
+name: Daily HTTP POST Request
+
+on:
+  schedule:
+    - cron: '1 21 * * *'
+
+jobs:
+  post_request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send HTTP POST request
+        run: |
+          curl -X POST "valorao.cloud/api/revalidate?endpoint=/api/storefront" \
+            -H "x-api-key: ${{ secrets.API_KEY }}"
