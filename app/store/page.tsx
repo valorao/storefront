@@ -1,9 +1,6 @@
-import Image from "next/image";
 import CountdownPage from "./components/countdown";
 import Item from "./components/Item";
 import { Suspense } from "react";
-import { LoaderCircle } from "lucide-react";
-import ShineBorder from "@/components/magicui/shine-border";
 import { Spinner } from "@/components/ui/spinner";
 import { BundleCarousel } from "./components/BundleCarousel";
 
@@ -32,6 +29,7 @@ export default async function storefront() {
         });
         bundleImgs = await Promise.all(bundleImgsPromises);
     }
+    console.log(bundleImgs.length)
 
 
     return (
@@ -39,7 +37,7 @@ export default async function storefront() {
             <div className=" w-full h-full flex flex-col">
                 <div className="mt-6 mb-6 md:mt-0" >
                     <h1 className="text-2xl font-bold text-center">
-                        Pacote em destaque
+                        {bundleImgs.length > 1 ? "Pacotes em destaque" : "Pacote em destaque"}
                     </h1>
                 </div>
                 <div className="m-4 md:m-0 flex">
