@@ -1,18 +1,22 @@
 "use client";
 import { Spinner } from '@/components/ui/spinner';
-import { Clock, LoaderCircle } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function CountdownPage() {
     const [remainingTime, setRemainingTime] = useState(0);
+
     useEffect(() => {
         const now = new Date();
-        const today9pm = new Date(now);
+        let today9pm = new Date(now);
         today9pm.setHours(21, 0, 0, 0);
-        const timeDifference = today9pm.getTime() - now.getTime();
-        if (timeDifference > 0) {
-            setRemainingTime(Math.floor(timeDifference / 1000));
+        // If the current time is past 9 PM, set countdown to tomorrow's 9 PM
+        if (now.getTime() > today9pm.getTime()) {
+            today9pm.setDate(today9pm.getDate() + 1);
         }
+
+        const timeDifference = today9pm.getTime() - now.getTime();
+        setRemainingTime(Math.floor(timeDifference / 1000));
     }, []);
 
     useEffect(() => {
@@ -41,6 +45,5 @@ export default function CountdownPage() {
                 Atualiza em: {`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}
             </h1>
         </div>
-
     );
 }

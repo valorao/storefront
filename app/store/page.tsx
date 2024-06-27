@@ -5,20 +5,34 @@ import { Suspense } from "react";
 import { LoaderCircle } from "lucide-react";
 import ShineBorder from "@/components/magicui/shine-border";
 import { Spinner } from "@/components/ui/spinner";
+import { BundleCarousel } from "./components/BundleCarousel";
 
 export const metadata = {
     title: 'Loja - valorao',
 }
 
+type BundleImages = {
+    bundle_uuid: string;
+    image_url: string;
+}
+
 export default async function storefront() {
+    let bundleImgs: BundleImages[] = [];
     const bundles = await fetch(`${process.env.NEXTAUTH_URL}/api/storefront/bundles`, {
         method: "GET",
     })
         .then((res) => res.json());
+    if (bundles.data.data) {
+        const bundleImgsPromises = bundles.data.data.map(async (image: BundleImages) => {
+            const response = await fetch(`https://valorant-api.com/v1/bundles/${image.bundle_uuid}`, {
+                method: "GET",
+            });
+            const bundleImg = await response.json();
+            return { bundle_uuid: image.bundle_uuid, image_url: bundleImg.data.displayIcon2 };
+        });
+        bundleImgs = await Promise.all(bundleImgsPromises);
+    }
 
-    const bundleImg = await fetch(`https://valorant-api.com/v1/bundles/${bundles.data.data[0].bundle_uuid}`, {
-        method: "GET",
-    }).then((res) => res.json());
 
     return (
         <div className="flex flex-col max-w-full justify-center items-center text-center">
@@ -29,19 +43,8 @@ export default async function storefront() {
                     </h1>
                 </div>
                 <div className="m-4 md:m-0 flex">
-                    <div className="relative md:w-[73%] mx-auto justify-center flex items-center text-center border rounded-lg">
-                        <ShineBorder
-                            className="m-0 p-1"
-                            color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
-                        >
-                            <Image
-                                src={bundleImg.data.displayIcon}
-                                width={1648}
-                                height={804}
-                                alt="Featured Bundle Image"
-                                className="rounded-lg"
-                            />
-                        </ShineBorder>
+                    <div className="relative md:w-[73%] w-[100%] mx-auto justify-center flex items-center text-center border rounded-lg">
+                        <BundleCarousel image_url={bundleImgs} />
                     </div>
                 </div>
             </div>
