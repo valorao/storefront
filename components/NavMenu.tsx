@@ -14,12 +14,12 @@ export default function NavMenu() {
 
     return (
         <nav className="fixed bottom-0 md:top-0 left-0 right-0 z-50 dark:bg-transparent backdrop-blur-xl h-16 shadow-md">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="flex items-center justify-between h-16 w-full">
 
                     <div className="flex items-center">
                         <Link href="/" className="text-xl font-bold">
-                            <div className="md:w-[100px] w-[70px] justify-center flex items-center text-center">
+                            <div className="md:w-[90px] w-[70px] justify-center flex items-center text-center">
                                 <Image
                                     src="https://valorao-cdn.rtrampox.cloud/images%2Fvalorao.png"
                                     width={1648}

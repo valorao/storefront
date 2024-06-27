@@ -26,9 +26,9 @@ export default async function RootLayout({
 
   return (
     <>
-      <html lang="en">
+      <html lang="pt">
         <body className={cn(
-          "min-h-screen max-w-full overflow-y-scroll bg-background font-sans antialiased w-screen overflow-x-hidden",
+          "max-h-screen max-w-full bg-background font-sans antialiased",
           inter.variable
         )}><SessionProvider session={session}>
             <ThemeProvider

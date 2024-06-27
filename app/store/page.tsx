@@ -29,7 +29,6 @@ export default async function storefront() {
         });
         bundleImgs = await Promise.all(bundleImgsPromises);
     }
-    console.log(bundleImgs.length)
 
 
     return (

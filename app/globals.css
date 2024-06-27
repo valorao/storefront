@@ -75,7 +75,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-body[data-scroll-locked] {
-  min-width: 100%;
-}

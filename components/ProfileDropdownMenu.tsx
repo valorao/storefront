@@ -9,19 +9,26 @@ import {
     DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import ShineBorder from "./magicui/shine-border";
+import { BorderBeam } from "./magicui/border-beam";
 
 function logoutUser() {
     signOut({ redirect: true, callbackUrl: "/logout" })
 }
 
 export default function ProfileDropdownMenu() {
+    const router = useRouter();
+    const pathname = usePathname();
     const { data: session } = useSession();
     const { setTheme } = useTheme();
     if (session) {
         return (
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild className="cursor-pointer">
-                    <Avatar>
+                    <Avatar className="relative">
+                        {pathname === '/profiles/self' ? <BorderBeam borderWidth={2} className="antialiased" /> : ''}
                         <AvatarImage className="object-cover" src={session.user?.image ?? ""} />
                         <AvatarFallback>{session.user?.name && `${session.user?.name[0]}${session.user?.name[1]}`}</AvatarFallback>
                     </Avatar>
@@ -30,7 +37,7 @@ export default function ProfileDropdownMenu() {
                     <DropdownMenuLabel>Olá, {`${session.user?.name?.split(' ')[0]}`}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <DropdownMenuItem disabled className="cursor-pointer">
+                        <DropdownMenuItem onClick={() => router.push('/profiles/self')} className="cursor-pointer">
                             <CircleUserRound className="mr-2 h-4 w-4" />
                             <span>Meu Perfil</span>
                         </DropdownMenuItem>
@@ -69,7 +76,7 @@ export default function ProfileDropdownMenu() {
                         <span>Sair da conta</span>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu >
         )
     };
 
