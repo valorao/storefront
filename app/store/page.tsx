@@ -35,7 +35,7 @@ export default async function storefront() {
     return (
         <div className="flex flex-col max-w-full justify-center items-center text-center">
             <div className=" w-full h-full flex flex-col">
-                <div className="mt-6 mb-6 md:mt-0" >
+                <div className="mt-6 md:mb-4 md:mt-0" >
                     <h1 className="text-2xl font-bold text-center">
                         {bundleImgs.length > 1 ? "Pacotes em destaque" : "Pacote em destaque"}
                     </h1>
