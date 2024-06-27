@@ -35,7 +35,7 @@ export default async function storefront() {
     return (
         <div className="flex flex-col max-w-full justify-center items-center text-center">
             <div className=" w-full h-full flex flex-col">
-                <div className="mt-6 md:mb-4 md:mt-0" >
+                <div className="w-full mt-6 md:mb-4 md:mt-0" >
                     <h1 className="text-2xl font-bold text-center">
                         {bundleImgs.length > 1 ? "Pacotes em destaque" : "Pacote em destaque"}
                     </h1>
@@ -47,7 +47,7 @@ export default async function storefront() {
                 </div>
             </div>
 
-            <div>
+            <div className="w-full">
                 <CountdownPage />
                 <div>
                     <Suspense fallback={
@@ -55,7 +55,7 @@ export default async function storefront() {
                             <Spinner className="w-10 h-10" />
                         </div>
                     }>
-                        <div>
+                        <div className="m-4 md:w-[73%] w-[100%] mx-auto justify-center flex items-center text-center rounded-lg">
                             <Item />
                         </div>
                     </Suspense>

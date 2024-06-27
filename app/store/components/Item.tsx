@@ -40,27 +40,27 @@ export default async function Item() {
             {storefront.map((item: any) => (
                 <div
                     key={item.offerID}
-                    className="md:w-1/4 h-[190px] border rounded-lg p-5 pb-1 relative dark:bg-white dark:bg-opacity-5 flex flex-col justify-between">
+                    className="border rounded-lg p-5 pb-1 relative dark:bg-white dark:bg-opacity-5 justify-between md:mx-0 mx-4">
                     <div className="relative z-10 w-full h-full flex flex-col">
                         <ItemCSRBtn item={item} className="h-full w-full">
-                            <div className="relative z-10 w-full m-0 p-0">
+                            <div className="relative z-10 w-full m-0 p-0 image-container overflow-hidden flex justify-center">
                                 <Image
                                     src={item.weaponInfo.displayIcon}
                                     width={1300}
                                     height={800}
                                     alt="Featured Skin Image"
-                                    className="min-h-full m-0 p-0 max-h-[100px] max-w-[330px]"
+                                    className="m-0 p-0"
                                     draggable={false}
-                                    style={{ objectFit: 'contain', width: '300px', height: '100px' }}
+                                    style={{ objectFit: 'contain', width: '330px', height: '100px' }}
                                 />
-                                <div className="flex justify-between flex-row mt-3 text-xl font-semibold">
-                                    <div>
-                                        <h1 className="text-slate-200 text-xl font-semibold break-words text-left">{item.weaponInfo.displayName}</h1>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <VPIcon className="w-5 h-5" />
-                                        <p>{item.cost}</p>
-                                    </div>
+                            </div>
+                            <div className="flex justify-between flex-row mt-3 text-xl font-semibold">
+                                <div>
+                                    <h1 className="text-slate-200 text-xl font-semibold break-words text-left w-40">{item.weaponInfo.displayName}</h1>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <VPIcon className="w-5 h-5" />
+                                    <p>{item.cost}</p>
                                 </div>
                             </div>
                         </ItemCSRBtn>
