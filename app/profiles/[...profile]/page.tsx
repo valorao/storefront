@@ -41,7 +41,7 @@ export default async function StoreFrontBundles({ params }: { params: { profile:
 
     return (
         <div className="max-w-full max-h-full flex flex-col justify-center items-center gap-3 mt-10 md:mt-0">
-            <Badge>Ultima vez atualizado: {lastUpdated.toLocaleDateString()} às {lastUpdated.toLocaleTimeString()}</Badge>
+            <Badge>Ultima vez atualizado: {lastUpdated.toLocaleDateString('pt-BR')} às {lastUpdated.toLocaleTimeString('pt-BR')}</Badge>
             <div className="flex w-64 h-24 bg-[#1F222F] border-[#353847] border rounded-xl text-center items-center gap-3">
                 <div className="w-14 h-14 rounded-xl justify-start flex ml-4">
                     <Image src={resp.searchData.data.card.small} alt="Profile Picture" objectFit="contain" width={128} height={128} />
