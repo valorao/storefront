@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import BundleDialog from "./BundleModal";
 import BundleCSRBtn from "./bundleCSR";
 import VPIcon from "./valorant-points-image";
+import GradualSpacing from "@/components/magicui/gradual-spacing";
 
 interface Bundle {
     bundle_uuid?: string;
@@ -58,9 +59,13 @@ export const BundleCarousel: React.FC<BundleCarouselProps> = ({ image_url }) => 
                                         {
                                             index > 1
                                                 ?
-                                                <Badge className="h-8 gap-1 text-sm font-semibold"><Sparkles className='w-4 h-4' />Pacotes em destaque</Badge>
+                                                <Badge className="h-8 gap-1 text-sm font-semibold"><Sparkles className='w-4 h-4' />
+                                                    Pacotes em destaque
+                                                </Badge>
                                                 :
-                                                <Badge className="h-8 gap-1 text-sm font-semibold"><Sparkles className='w-4 h-4' />Expira em: {CountdownPage({ time_remaining: bundle.seconds_remaining })}</Badge>
+                                                <Badge className="h-8 gap-1 text-sm font-semibold"><Sparkles className='w-4 h-4' />
+                                                    Expira em: {CountdownPage({ time_remaining: bundle.seconds_remaining })}
+                                                </Badge>
                                         }
                                     </h1>
                                 </div>
@@ -80,10 +85,16 @@ export const BundleCarousel: React.FC<BundleCarouselProps> = ({ image_url }) => 
                                         <div className="items-center flex-col">
                                             <div className="absolute md:bottom-4 bottom-2 left-4 flex flex-col justify-start">
                                                 <h1 className="md:text-xl text-xs flex justify-start">Pacote em destaque</h1>
-                                                <h1 className="md:text-6xl">{bundle.bundle_name}</h1>
+                                                <h1 className="md:text-6xl">
+                                                    <GradualSpacing
+                                                        className="md:text-6xl text-center text-xl tracking-[-0.1em] text-black dark:text-white"
+                                                        text={bundle.bundle_name}
+                                                    />
+                                                </h1>
                                             </div>
                                             <h1 className="md:text-6xl absolute md:bottom-4 bottom-2 md:right-4 right-4 flex flex-row gap-2 items-center text-center">
-                                                <VPIcon className="w-6 h-6 md:w-10 md:h-10" />{bundle.bundle_price}
+                                                <VPIcon className="w-6 h-6 md:w-10 md:h-10" />
+                                                <p>{bundle.bundle_price.toString()}</p>
                                             </h1>
                                         </div>
                                     </ShineBorder>

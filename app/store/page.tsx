@@ -5,6 +5,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { BundleCarousel } from "./components/BundleCarousel";
 import { Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { BadgeMagicUI } from "./components/Badge";
 
 export const metadata = {
     title: 'Loja - valorao',
@@ -45,6 +46,7 @@ export default async function storefront() {
 
     return (
         <div className="flex flex-col max-w-full justify-center items-center text-center">
+            <BadgeMagicUI />
             <div className=" w-full h-full flex flex-col">
                 <div className="m-4 md:m-0 flex">
                     <div className="relative md:w-[73%] w-[100%] mx-auto justify-center flex items-center text-center border rounded-lg mt-5">

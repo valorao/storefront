@@ -22,7 +22,7 @@ export default function GradualSpacing({
     className,
 }: GradualSpacingProps) {
     return (
-        <div className="flex justify-center space-x-1">
+        <div className="flex justify-center md:space-x-1 space-x-0.5">
             <AnimatePresence>
                 {text.split("").map((char, i) => (
                     <motion.h1
