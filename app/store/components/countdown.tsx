@@ -1,4 +1,5 @@
 "use client";
+import { Badge } from '@/components/ui/badge';
 import { Spinner } from '@/components/ui/spinner';
 import { Clock } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -32,17 +33,23 @@ export default function CountdownPage() {
     const seconds = remainingTime % 60;
     if (remainingTime <= 0) {
         return (
-            <div className="flex items-center text-center gap-1 justify-center m-5">
-                <Spinner />
+            <div className="flex items-center text-center gap-1 justify-center md:m-2">
+                <h1 className="text-2xl font-bold text-center justify-center">
+                    <Badge variant="secondary" className='h-9 gap-1 text-sm font-semibold'>
+                        <Spinner className="text-white w-4 h-4" /> Calculando...
+                    </Badge>
+                </h1>
             </div>
         );
     }
 
     return (
-        <div className="flex items-center text-center gap-1 justify-center m-5">
-            <Clock />
+        <div className="flex items-center text-center gap-1 justify-center md:m-2">
             <h1 className="text-2xl font-bold text-center justify-center">
-                Atualiza em: {`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}
+                <Badge variant="secondary" className='h-9 gap-1 text-sm font-semibold'>
+                    <Clock className='w-4 h-4' />
+                    Atualiza em: {`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}
+                </Badge>
             </h1>
         </div>
     );

@@ -1,8 +1,8 @@
 "use client";
 import { ReactNode, useState } from "react";
-import ItemDialog from "./ItemModal";
+import BundleDialog from "./BundleModal";
 
-export default function ItemCSRBtn({ item, className, children }: { item: any; className?: string; children?: ReactNode }) {
+export default function BundleCSRBtn({ bundleData, className, children }: { bundleData: any; className?: string; children?: ReactNode }) {
     const [isDialogOpen, setDialogOpen] = useState(false);
 
     return (
@@ -10,13 +10,12 @@ export default function ItemCSRBtn({ item, className, children }: { item: any; c
             <button className={className || ''} onClick={() => setDialogOpen(true)}>
                 {children}
             </button>
-            <ItemDialog
+            <BundleDialog
                 dialogSize="md:max-w-[700px]"
-                itemPrice={item.cost}
-                itemTitle={item.weaponInfo.displayName}
-                itemVideoPreview={item.weaponInfo.streamedVideo}
-                itemDisplayImage={item.weaponInfo.displayIcon}
-                key={item.offerID}
+                itemPrice={bundleData.bundle_price}
+                itemTitle={bundleData.bundle_name}
+                itemVideoPreview={bundleData.image_url}
+                key={bundleData.bundle_uuid}
                 isDialogOpen={isDialogOpen}
                 setDialogOpen={setDialogOpen}
             />

@@ -36,7 +36,7 @@ export default async function Item() {
         )
     }
     return (
-        <div className="flex flex-col gap-5 md:flex-row md:m-0 w-auto h-auto">
+        <div className="flex flex-col gap-5 md:flex-row md:m-0 w-auto h-auto mb-16">
             {storefront.map((item: any) => (
                 <div
                     key={item.offerID}
@@ -48,8 +48,8 @@ export default async function Item() {
                                     src={item.weaponInfo.displayIcon}
                                     width={1300}
                                     height={800}
-                                    alt="Featured Skin Image"
-                                    className="m-0 p-0"
+                                    alt={`Shop Item ${item.weaponInfo.displayName}`}
+                                    className="m-0 p-0 drop-shadow-[0_0_10px_rgba(0,0,0,1)]"
                                     draggable={false}
                                     style={{ objectFit: 'contain', width: '330px', height: '100px' }}
                                 />
@@ -65,14 +65,14 @@ export default async function Item() {
                             </div>
                         </ItemCSRBtn>
                     </div>
-                    <div className="absolute inset-0 z-[-10] overflow-hidden">
+                    <div className="absolute inset-0 z-0 overflow-hidden">
                         <Image
                             src={item.weaponInfo.contentTierInfo.displayIcon}
                             width={256}
                             height={256}
                             objectFit="contain"
-                            alt="Content Tier Image"
-                            className="opacity-40"
+                            alt={`Shop Item ${item.weaponInfo.displayName} Tier Icon`}
+                            className="opacity-30 w-64 h-64 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_10px_rgba(0,0,0,1)]"
                             draggable={false}
                         />
                     </div>

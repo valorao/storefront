@@ -3,6 +3,8 @@ import Item from "./components/Item";
 import { Suspense } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { BundleCarousel } from "./components/BundleCarousel";
+import { Sparkles } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
     title: 'Loja - valorao',
@@ -11,6 +13,10 @@ export const metadata = {
 type BundleImages = {
     bundle_uuid: string;
     image_url: string;
+    seconds_remaining: number;
+    bundle_price: string;
+    displayName: string;
+    bundle_name: string;
 }
 
 export default async function storefront() {
@@ -21,11 +27,17 @@ export default async function storefront() {
         .then((res) => res.json());
     if (bundles.data.data) {
         const bundleImgsPromises = bundles.data.data.map(async (image: BundleImages) => {
-            const response = await fetch(`https://valorant-api.com/v1/bundles/${image.bundle_uuid}`, {
+            const response = await fetch(`https://valorant-api.com/v1/bundles/${image.bundle_uuid}?language=pt-BR`, {
                 method: "GET",
             });
             const bundleImg = await response.json();
-            return { bundle_uuid: image.bundle_uuid, image_url: bundleImg.data.displayIcon2 };
+            return {
+                bundle_uuid: image.bundle_uuid,
+                image_url: bundleImg.data.displayIcon2,
+                seconds_remaining: image.seconds_remaining,
+                bundle_price: image.bundle_price,
+                bundle_name: bundleImg.data.displayName
+            };
         });
         bundleImgs = await Promise.all(bundleImgsPromises);
     }
@@ -34,13 +46,8 @@ export default async function storefront() {
     return (
         <div className="flex flex-col max-w-full justify-center items-center text-center">
             <div className=" w-full h-full flex flex-col">
-                <div className="w-full mt-6 md:mb-4 md:mt-0" >
-                    <h1 className="text-2xl font-bold text-center">
-                        {bundleImgs.length > 1 ? "Pacotes em destaque" : "Pacote em destaque"}
-                    </h1>
-                </div>
                 <div className="m-4 md:m-0 flex">
-                    <div className="relative md:w-[73%] w-[100%] mx-auto justify-center flex items-center text-center border rounded-lg">
+                    <div className="relative md:w-[73%] w-[100%] mx-auto justify-center flex items-center text-center border rounded-lg mt-5">
                         <BundleCarousel image_url={bundleImgs} />
                     </div>
                 </div>
@@ -61,6 +68,6 @@ export default async function storefront() {
                 </div>
             </div>
 
-        </div>
+        </div >
     )
 }

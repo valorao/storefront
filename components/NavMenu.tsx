@@ -13,8 +13,8 @@ export default function NavMenu() {
     const pathname = usePathname();
 
     return (
-        <nav className="fixed bottom-0 md:top-0 left-0 right-0 z-50 dark:bg-transparent backdrop-blur-xl h-16 flex justify-evenly shadow-md">
-            <div className="max-w-7xl w-full">
+        <nav className="fixed bottom-0 md:top-0 left-0 right-0 z-50 dark:bg-transparent backdrop-blur-xl h-16 flex justify-evenly shadow-md w-[100vw]">
+            <div className="max-w-7xl mx-4 md:mx-0 w-full">
                 <div className="flex items-center justify-between h-16 w-full">
 
                     <div>

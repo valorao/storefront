@@ -3,6 +3,7 @@ import VPIcon from "./valorant-points-image";
 import { Button } from "@/components/ui/button";
 import { Dispatch, SetStateAction } from "react";
 import { Credenza, CredenzaClose, CredenzaContent, CredenzaDescription, CredenzaFooter, CredenzaHeader, CredenzaTitle } from "@/components/ui/credenza";
+import Image from "next/image";
 
 type ItemDialogProps = {
     dialogSize: string;
@@ -16,12 +17,13 @@ type ItemDialogProps = {
 export default function BundleDialog({ dialogSize, itemPrice, itemTitle, itemVideoPreview, isDialogOpen, setDialogOpen }: ItemDialogProps) {
     let videoPlayer;
     if (itemVideoPreview) videoPlayer = (
-        <video
+        <Image
             className="w-full h-full rounded-lg object-cover"
             src={itemVideoPreview}
-            controls
-            controlsList="nodownload"
-            preload="metadata"
+            alt={itemTitle}
+            width={1648}
+            height={804}
+            objectFit="contain"
         />
     )
     else {
@@ -49,11 +51,11 @@ export default function BundleDialog({ dialogSize, itemPrice, itemTitle, itemVid
                     </CredenzaHeader>
                     <CredenzaFooter>
                         <CredenzaClose>
-                            <Button variant="link" >fechar</Button>
+                            <Button variant="default" className="w-full">fechar</Button>
                         </CredenzaClose>
                     </CredenzaFooter>
                 </CredenzaContent>
-            </Credenza>
+            </Credenza >
         </>
     )
 }
