@@ -7,7 +7,7 @@ export const GET = async () => {
             'accept': 'application/json',
             'Authorization': `${process.env.HENRIK_API_KEY}`
         },
-        next: { revalidate: 3600 }
+        next: { revalidate: 1800 }
     });
     if (!response.ok) NextResponse.json({ data: response }, { status: response.status || 400 });
     const data = await response.json();
