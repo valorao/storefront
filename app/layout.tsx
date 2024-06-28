@@ -28,7 +28,7 @@ export default async function RootLayout({
     <>
       <html lang="pt">
         <body className={cn(
-          "max-h-screen max-w-full bg-background font-sans antialiased",
+          "max-h-full max-w-full bg-background font-sans antialiased",
           inter.variable
         )}><SessionProvider session={session}>
             <ThemeProvider

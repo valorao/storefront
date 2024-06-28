@@ -4,10 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image";
 import { getServerSession } from "next-auth/next";
 import LoginBtn from "@/app/store/components/ClientActions";
-
-export const metadata = {
-    title: 'dev - valorao',
-}
+import { Metadata } from "next";
 
 export default async function StoreFrontBundles({ params }: { params: { profile: string[] } }) {
     const session = await getServerSession();
@@ -38,16 +35,40 @@ export default async function StoreFrontBundles({ params }: { params: { profile:
         }).then((res) => res.json());
     }
     const lastUpdated = new Date(resp.searchData.data.last_update_raw * 1000);
+    generateMetadata({ params })
 
     return (
-        <div className="max-w-full max-h-full flex flex-col justify-center items-center gap-3 mt-10 md:mt-0">
-            <Badge>Ultima vez atualizado: {lastUpdated.toLocaleDateString('pt-BR')} às {lastUpdated.toLocaleTimeString('pt-BR')}</Badge>
-            <div className="flex w-64 h-24 bg-[#1F222F] border-[#353847] border rounded-xl text-center items-center gap-3">
-                <div className="w-14 h-14 rounded-xl justify-start flex ml-4">
-                    <Image src={resp.searchData.data.card.small} alt="Profile Picture" objectFit="contain" width={128} height={128} />
+        <>
+            <div className="max-w-full max-h-full flex flex-col justify-center items-center gap-3 mt-10 md:mt-0">
+                <Badge>Ultima vez atualizado: {lastUpdated.toLocaleDateString('pt-BR')} às {lastUpdated.toLocaleTimeString('pt-BR')}</Badge>
+                <div className="flex w-64 h-24 bg-[#1F222F] border-[#353847] border rounded-xl text-center items-center gap-3">
+                    <div className="w-14 h-14 rounded-xl justify-start flex ml-4">
+                        <Image src={resp.searchData.data.card.small} alt="Profile Picture" objectFit="contain" width={128} height={128} />
+                    </div>
+                    <h1 className="font-bold text-xl">{resp.searchData.data.name} # {resp.searchData.data.tag}</h1>
                 </div>
-                <h1 className="font-bold text-xl">{resp.searchData.data.name} # {resp.searchData.data.tag}</h1>
             </div>
-        </div>
+        </>
     )
+}
+
+
+export async function generateMetadata({ params }: { params: { profile: string[] } }): Promise<Metadata> {
+    if (params.profile.length < 2 && params.profile.includes('self')) {
+        return {
+            title: 'Seu perfil - valorao',
+            description: 'Visualize seu perfil.',
+        };
+    }
+    if (params.profile.length > 2 || params.profile.length < 2 && !params.profile.includes('self')) {
+        return {
+            title: 'Perfil',
+            description: 'Busque por perfis do VALORANT.',
+        };
+    } else {
+        return {
+            title: `Perfil de ${params.profile[0]} - valorao`,
+            description: `Visualize o perfil de ${params.profile[0]}#${params.profile[1]}.`,
+        };
+    }
 }
