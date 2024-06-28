@@ -23,15 +23,23 @@ export default async function PlayerProfile({ params }: { params: { profile: str
         )
     }
     let resp;
+    let historyresp;
     if (params.profile.length < 2 && params.profile.includes('self')) {
         resp = await fetch(`${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?forcerefresh=true&isOnSelf=true`, {
             method: "GET",
             headers: new Headers(headers()),
         }).then((res) => res.json());
+        // historyresp = await fetch(`${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/history?forcerefresh=true&isOnSelf=true`, {
+        //     method: "GET",
+        //     headers: new Headers(headers()),
+        // }).then((res) => res.json());
     } else {
         resp = await fetch(`${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?forcerefresh=true&isOnSelf=false`, {
             method: "GET",
         }).then((res) => res.json());
+        // historyresp = await fetch(`${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/history?forcerefresh=true&isOnSelf=false`, {
+        //     method: "GET",
+        // }).then((res) => res.json());
     }
     const lastUpdated = new Date(resp.searchData.data.last_update_raw * 1000);
 

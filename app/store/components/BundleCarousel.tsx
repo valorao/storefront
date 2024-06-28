@@ -104,8 +104,14 @@ export const BundleCarousel: React.FC<BundleCarouselProps> = ({ image_url }) => 
                     </>
                 ))}
             </CarouselContent>
-            {isDesktop && <CarouselNext />}
-            {isDesktop && <CarouselPrevious />}
+            {isDesktop && image_url.length >= 2 ? (
+                <>
+                    <CarouselNext />
+                    <CarouselPrevious />
+                </>
+            ) : (
+                ''
+            )}
         </Carousel >
     )
 }

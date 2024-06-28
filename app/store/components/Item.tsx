@@ -40,7 +40,7 @@ export default async function Item() {
             {storefront.map((item: any) => (
                 <div
                     key={item.offerID}
-                    className="border rounded-lg p-5 pb-1 relative dark:bg-white dark:bg-opacity-5 justify-between md:mx-0 mx-4">
+                    className="group border rounded-lg p-5 pb-1 relative dark:bg-white dark:bg-opacity-5 justify-between md:mx-0 mx-4">
                     <div className="relative z-10 w-full h-full flex flex-col">
                         <ItemCSRBtn item={item} className="h-full w-full">
                             <div className="relative z-10 w-full m-0 p-0 image-container overflow-hidden flex justify-center">
@@ -49,12 +49,12 @@ export default async function Item() {
                                     width={1300}
                                     height={800}
                                     alt={`Shop Item ${item.weaponInfo.displayName}`}
-                                    className="m-0 p-0 drop-shadow-[0_0_10px_rgba(0,0,0,1)]"
+                                    className="m-0 p-0 drop-shadow-[0_0_10px_rgba(0,0,0,1)] transform transition duration-300 group-hover:scale-90"
                                     draggable={false}
                                     style={{ objectFit: 'contain', width: '330px', height: '100px' }}
                                 />
                             </div>
-                            <div className="flex justify-between flex-row mt-3 text-xl font-semibold">
+                            <div className="flex justify-between flex-row mt-3 text-xl font-semibold transform transition duration-300 group-hover:scale-90">
                                 <div>
                                     <h1 className="text-slate-200 text-xl font-semibold break-words text-left w-40">{item.weaponInfo.displayName}</h1>
                                 </div>
@@ -72,7 +72,7 @@ export default async function Item() {
                             height={256}
                             objectFit="contain"
                             alt={`Shop Item ${item.weaponInfo.displayName} Tier Icon`}
-                            className="opacity-30 w-64 h-64 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_10px_rgba(0,0,0,1)]"
+                            className="opacity-30 w-64 h-64 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_10px_rgba(0,0,0,1)] transition duration-300 group-hover:scale-90"
                             draggable={false}
                         />
                     </div>

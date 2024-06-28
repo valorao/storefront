@@ -28,7 +28,7 @@ export default function ProfileDropdownMenu() {
                 <DropdownMenuTrigger asChild className="cursor-pointer">
                     <Avatar className="relative">
                         {pathname === '/profiles/self' ? <BorderBeam borderWidth={2} className="antialiased" /> : ''}
-                        <AvatarImage className="object-cover" src={session.user?.image ?? ""} />
+                        <AvatarImage className="object-cover rounded-full" src={session.user?.image ?? ""} />
                         <AvatarFallback>{session.user?.name && `${session.user?.name[0]}${session.user?.name[1]}`}</AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>
