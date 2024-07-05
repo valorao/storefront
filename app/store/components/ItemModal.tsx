@@ -69,7 +69,7 @@ export default function ItemDialog({ dialogSize, itemPrice, itemTitle, itemVideo
                     <CredenzaHeader>
                         <CredenzaTitle className="mb-5" >
                             <div className="flex items-center text-center gap-2 justify-start mt-3 ml-2" >
-                                {itemTitle} -
+                                {itemTitle} <p> - </p>
                                 <div className="flex items-center text-center gap-1">
                                     <VPIcon className="w-5 h-5" /><p className="text-white" >{itemPrice}{!novideo && " - Nível 1"}</p>
                                 </div>

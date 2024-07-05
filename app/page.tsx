@@ -1,9 +1,12 @@
-import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+  title: "valorao",
+  description: "Bem-vindo ao valorao, aqui você pode ver perfis de jogadores, loja e outras informações sobre o VALORANT!",
+}
+
 export default async function Home() {
-  const session = await getServerSession();
   return (
-    redirect(session ? "/store" : "/api/auth/signin")
+    redirect("/store")
   );
 }
