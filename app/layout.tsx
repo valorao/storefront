@@ -4,7 +4,7 @@ import { Inter as FontSans } from "next/font/google"
 import { getServerSession } from "next-auth";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import NavMenu from "@/components/NavMenu";
+import NavMenu from "@/components/navigation/NavMenu";
 import SessionProvider from "../components/SessionProvider"
 
 const inter = FontSans({
