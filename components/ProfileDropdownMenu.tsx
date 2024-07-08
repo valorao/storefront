@@ -32,7 +32,7 @@ export default function ProfileDropdownMenu() {
                         <AvatarFallback>{session.user?.name && `${session.user?.name[0]}${session.user?.name[1]}`}</AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-full">
+                <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Olá, {`${session.user?.name?.split(' ')[0]}`}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
@@ -80,10 +80,11 @@ export default function ProfileDropdownMenu() {
     };
 
     return (
-        <div className="flex flex-row ml-4 items-center justify-center text-center cursor-pointer text-nowrap" onClick={() => signIn()}>
-            <LucideLogIn className="w-5 h-5 items-center" />
-            <button className="flex flex-row ml-4">Log in</button>
-        </div>
+        <Avatar className="relative items-center justify-center text-center cursor-pointer" onClick={() => signIn()}>
+            <BorderBeam borderWidth={2} className="antialiased" />
+            <AvatarImage className="object-cover rounded-full" />
+            <AvatarFallback>{<LucideLogIn className="w-5 h-5 items-center antialiased" />}</AvatarFallback>
+        </Avatar>
     );
 
 }
