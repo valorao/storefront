@@ -55,8 +55,17 @@ export default function NavMenu() {
                                 "text-muted-foreground transition-colors hover:text-foreground text-nowrap"
                         }
                         prefetch={false}>
-                        esports
+                        Esports
                     </Link>
+                    {pathname.includes('/profiles') && <h1
+                        className={
+                            pathname.includes('/profiles') ?
+                                "text-foreground transition-colors hover:text-foreground text-nowrap" :
+                                "text-muted-foreground transition-colors hover:text-foreground text-nowrap"
+                        }
+                    >
+                        Perfis
+                    </h1>}
                 </nav>
 
                 <Sheet>

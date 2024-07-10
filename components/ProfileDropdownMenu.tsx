@@ -1,13 +1,11 @@
 "use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useTheme } from "next-themes"
-import * as React from "react"
-import { CircleUserRound, Moon, Sun } from "lucide-react"
-import { LucideLogIn, Cloud, LogOut, Settings, SunMoon } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTheme } from "next-themes";
+import { CircleUserRound } from "lucide-react";
+import { LucideLogIn, Cloud, LogOut, Settings } from "lucide-react";
 import {
-    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,
-    DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+    DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
@@ -52,23 +50,6 @@ export default function ProfileDropdownMenu() {
                         <Cloud className="mr-2 h-4 w-4" />
                         <span>API</span>
                     </DropdownMenuItem>
-                    <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>
-                            <SunMoon className="mr-2 h-4 w-4" />
-                            <span>Tema</span>
-                        </DropdownMenuSubTrigger>
-                        <DropdownMenuSubContent>
-                            <DropdownMenuItem onClick={() => setTheme("light")}>
-                                <Sun className="h-[1.2rem] w-[1.2rem] mr-2" /> Claro
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => setTheme("dark")}>
-                                <Moon className="h-[1.2rem] w-[1.2rem] mr-2" />Escuro
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => setTheme("system")}>
-                                <Settings className="mr-2 h-4 w-4" />Padrão do sistema
-                            </DropdownMenuItem>
-                        </DropdownMenuSubContent>
-                    </DropdownMenuSub>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => logoutUser()} className="cursor-pointer">
                         <LogOut className="mr-2 h-4 w-4" />

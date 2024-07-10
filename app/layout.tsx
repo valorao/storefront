@@ -33,9 +33,9 @@ export default async function RootLayout({
         )}><SessionProvider session={session}>
             <ThemeProvider
               attribute="class"
-              defaultTheme="system"
-              enableSystem
+              defaultTheme="dark"
               disableTransitionOnChange
+              forcedTheme="dark"
             >
               <NavMenu />
               <div className="md:mt-20 md:mb-15 bg-background" vaul-drawer-wrapper="">
