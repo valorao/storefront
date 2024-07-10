@@ -1,11 +1,15 @@
 import { Metadata } from "next";
 import PlayerProfile from "./components/PlayerProfile";
+import { Suspense } from "react";
+import Loading from "./loading";
 export default async function StoreFrontBundles({ params }: { params: { profile: string[] } }) {
     generateMetadata({ params })
     return (
-        <>
-            <PlayerProfile params={params} />
-        </>
+        <div>
+            <Suspense fallback={<Loading />}>
+                <PlayerProfile params={params} />
+            </Suspense >
+        </div>
     )
 }
 

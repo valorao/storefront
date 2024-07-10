@@ -7,13 +7,14 @@ import { Menu, SearchIcon } from "lucide-react";
 import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet";
 import ValoraoLogo from "../valoraoLogo";
 import { useState } from "react"; import SearchBar from "./navSearchBar";
+import { Badge } from "../ui/badge";
 
 export default function NavMenu() {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
 
     return (
-        <div className="flex w-[100vw] h-16 flex-col fixed bottom-0 md:top-0 left-0 right-0 z-50">
+        <div className="flex md:w-[100vw] w-full h-16 flex-col fixed bottom-0 md:top-0 left-0 right-0 z-50">
             <header className="sticky top-0 flex h-16 items-center gap-4 border-x-0 border-y dark:bg-transparent backdrop-blur-xl px-7 md:px-7">
                 <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
                     <Link
@@ -73,7 +74,7 @@ export default function NavMenu() {
                         <Button
                             variant="outline"
                             size="icon"
-                            className="shrink-0 md:hidden"
+                            className="shrink-0 md:hidden bg-black/30"
                         >
                             <Menu className="h-5 w-5" />
                             <span className="sr-only">Abrir menu de navegação</span>
@@ -126,8 +127,8 @@ export default function NavMenu() {
                 </Sheet>
 
                 <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-                    <Button className="ml-auto flex-1 sm:flex-initial gap-1" variant="link" onClick={() => setOpen(true)}>
-                        <SearchIcon className="h-4 w-4 text-muted-foreground" />Buscar | ^J
+                    <Button className="md:ml-auto flex-1 sm:flex-initial gap-1 justify-center" variant="link" onClick={() => setOpen(true)}>
+                        <SearchIcon className="h-4 w-4 text-muted-foreground" />Buscar<Badge className="hover:bg-white md:flex hidden">^J</Badge>
                     </Button>
                     <div className="flex items-center">
                         <ProfileDropdownMenu />
