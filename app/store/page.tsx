@@ -44,10 +44,10 @@ export default async function storefront() {
 
     return (
         <div className="flex flex-col max-w-full justify-center items-center text-center">
-            <BadgeMagicUI />
+            {/* <BadgeMagicUI /> */}
             <div className=" w-full h-full flex flex-col">
                 <div className="m-4 md:m-0 flex">
-                    <div className="relative md:w-[73%] w-[100%] mx-auto justify-center flex items-center text-center border rounded-lg mt-5">
+                    <div className="relative md:w-[73%] w-[100%] mx-auto justify-center flex items-center text-center border rounded-lg">
                         <BundleCarousel image_url={bundleImgs} />
                     </div>
                 </div>

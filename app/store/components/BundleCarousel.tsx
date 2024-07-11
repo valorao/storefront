@@ -1,7 +1,6 @@
 "use client";
-import * as React from "react"
-import Autoplay from "embla-carousel-autoplay"
-import ShineBorder from "@/app/components/magicui/shine-border";
+import * as React from "react";
+import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import {
     Carousel,
@@ -9,7 +8,7 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "@/app/components/ui/carousel"
+} from "@/app/components/ui/carousel";
 import { useMediaQuery } from "@/app/components/hooks/use-media-query";
 import { Sparkles } from "lucide-react";
 import { Badge } from "@/app/components/ui/badge";
@@ -19,6 +18,7 @@ import BundleDialog from "./BundleModal";
 import BundleCSRBtn from "./bundleCSR";
 import VPIcon from "./valorant-points-image";
 import GradualSpacing from "@/app/components/magicui/gradual-spacing";
+import ShineBorder from "@/app/components/magicui/shine-border";
 
 interface Bundle {
     bundle_uuid?: string;
@@ -53,7 +53,7 @@ export const BundleCarousel: React.FC<BundleCarouselProps> = ({ image_url }) => 
                 {image_url && image_url.map((bundle, index) => (
                     <>
                         <BundleCSRBtn bundleData={bundle}>
-                            <CarouselItem key={index} className="w-full relative overflow-visible group">
+                            <CarouselItem key={bundle.bundle_uuid} className="w-full relative overflow-visible group">
                                 <div className="w-full absolute z-10 top-2 flex justify-center items-center text-center left-0 right-0" >
                                     <h1 className="text-2xl font-bold text-center flex justify-center items-center">
                                         {
@@ -64,7 +64,7 @@ export const BundleCarousel: React.FC<BundleCarouselProps> = ({ image_url }) => 
                                                 </Badge>
                                                 :
                                                 <Badge className="h-8 gap-1 text-sm font-semibold"><Sparkles className='w-4 h-4' />
-                                                    Expira em: {CountdownPage({ time_remaining: bundle.seconds_remaining })}
+                                                    Expira em:<CountdownPage time_remaining={bundle.seconds_remaining} />
                                                 </Badge>
                                         }
                                     </h1>
@@ -83,16 +83,16 @@ export const BundleCarousel: React.FC<BundleCarouselProps> = ({ image_url }) => 
                                             className="rounded-lg relative"
                                         />
                                         <div className="items-center flex-col">
-                                            <div className="absolute md:bottom-4 bottom-2 left-4 flex flex-col justify-start">
-                                                <h1 className="md:text-xl text-xs flex justify-start">Pacote em destaque</h1>
-                                                <h1 className="md:text-6xl">
+                                            <div className="absolute md:bottom-4 bottom-2 left-4 flex flex-col justify-start ml-3">
+                                                <h1 className="lg:text-xl md:text-xl text-xs flex justify-start">Pacote em destaque</h1>
+                                                <h1 className="lg:text-6xl md:text-4xl">
                                                     <GradualSpacing
-                                                        className="md:text-6xl text-center text-xl tracking-[-0.1em] text-black dark:text-white"
+                                                        className="lg:text-6xl md:text-4xl text-center text-xl tracking-[-0.1em] text-black dark:text-white"
                                                         text={bundle.bundle_name}
                                                     />
                                                 </h1>
                                             </div>
-                                            <h1 className="md:text-6xl absolute md:bottom-4 bottom-2 md:right-4 right-4 flex flex-row gap-2 items-center text-center">
+                                            <h1 className="lg:text-6xl md:text-4xl absolute md:bottom-4 bottom-2 md:right-4 right-4 flex flex-row gap-2 items-center text-center">
                                                 <VPIcon className="w-6 h-6 md:w-10 md:h-10" />
                                                 <p>{bundle.bundle_price.toString()}</p>
                                             </h1>

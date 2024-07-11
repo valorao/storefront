@@ -27,10 +27,10 @@ type SearchForm = z.infer<typeof searchSchema>;
 export default function SearchBar({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) {
     const queryParams = useSearchParams();
     const router = useRouter();
-    const [value, setValue] = useState('');
+    // const [value, setValue] = useState('');
     const [results, setResults] = useState<searchResults | null>(null);
     const [formInput, setFormInput] = useState('');
-    const { register, handleSubmit, formState: { errors }, clearErrors } = useForm<SearchForm>({
+    const { register, handleSubmit, formState: { errors }, clearErrors, setValue } = useForm<SearchForm>({
         resolver: zodResolver(searchSchema),
         mode: "onSubmit",
         reValidateMode: "onSubmit",
@@ -74,21 +74,25 @@ export default function SearchBar({ open, setOpen }: { open: boolean; setOpen: (
 
     useEffect(() => {
         const searchQuery = queryParams.get('q');
-        if (searchQuery) {
+        const decoded = decodeURIComponent(searchQuery as string)
+        if (decoded.includes(' ')) {
             setOpen(true);
-            setValue(searchQuery);
+            setValue("search", decoded.split(' ')[0] + '#' + decoded.split(' ')[1]);
+        } else if (searchQuery) {
+            setOpen(true);
+            setValue("search", searchQuery);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        if (value.trim()) {
-            const encodedValue = encodeURIComponent(value);
+        if (formInput.trim()) {
+            const encodedValue = encodeURIComponent(formInput);
             router.replace(`?q=${encodedValue}`, { scroll: false });
         } else {
             router.replace(``, { scroll: false });
         }
-    }, [router, value]);
+    }, [router, formInput]);
 
     async function searchQuery(data: SearchForm) {
         console.log(data)
