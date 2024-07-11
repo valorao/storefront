@@ -156,7 +156,7 @@ export default function SearchBar({ open, setOpen }: { open: boolean; setOpen: (
                         </div>
                     </DialogFooter>}
                     {results && <DialogFooter>
-                        <div className="flex flex-col w-full gap-2 mb-2">
+                        <div className="flex flex-col w-full gap-2 mb-4">
                             <div className="flex flex-col items-center w-full justify-center mt-[-10px]">
                                 <Separator className="bg-zinc-500" />
                             </div>

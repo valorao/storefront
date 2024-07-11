@@ -30,7 +30,7 @@ export default async function PlayerProfile({ params }: { params: { profile: str
         `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?forcerefresh=true&isOnSelf=true` :
         `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?forcerefresh=true&isOnSelf=false`, {
         method: "GET",
-        headers: headers()
+        headers: new Headers(headers())
     }).then((res) => res.ok && res.json());
 
     if (!resp) {
