@@ -12,6 +12,7 @@ import { Badge } from "../ui/badge";
 export default function NavMenu() {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
+    console.log(pathname)
 
     return (
         <div className="flex md:w-[100vw] w-full h-16 flex-col fixed bottom-0 md:top-0 left-0 right-0 z-50">
@@ -65,7 +66,7 @@ export default function NavMenu() {
                                 "text-muted-foreground transition-colors hover:text-foreground text-nowrap"
                         }
                     >
-                        Perfis
+                        Perfis: {pathname.includes('self') ? 'Seu Perfil' : pathname.slice().split('/')[2] + '#' + pathname.slice().split('/')[3]}
                     </h1>}
                 </nav>
 

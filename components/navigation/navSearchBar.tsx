@@ -18,6 +18,7 @@ export default function SearchBar({ open, setOpen }: { open: boolean, setOpen: (
     const queryParams = useSearchParams();
     const router = useRouter();
     const [value, setValue] = useState('');
+    const [results, setResults] = useState(null);
     const { register, handleSubmit, formState: { errors }, clearErrors } = useForm<SearchForm>({
         resolver: zodResolver(searchSchema),
     });
@@ -42,10 +43,7 @@ export default function SearchBar({ open, setOpen }: { open: boolean, setOpen: (
 
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
-            if (e.key === "j" && (e.metaKey || e.ctrlKey)) {
-                e.preventDefault();
-                setOpen(!open);
-            }
+            if (e.key === "j" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); setOpen(!open); }
         };
         document.addEventListener("keydown", down);
         return () => document.removeEventListener("keydown", down);
@@ -57,6 +55,16 @@ export default function SearchBar({ open, setOpen }: { open: boolean, setOpen: (
         const tag = data.search.split("#")[1];
         setOpen(false);
         router.push(`/profiles/${name}/${tag}?e=vlr&rg=br`);
+    }
+    function tryResult(e: any) {
+        clearErrors("search")
+        const value = e.target.value;
+        if (!value) {
+            setResults(null)
+        }
+        if (!errors.search && value) {
+            setResults(value)
+        }
     }
 
     return (
@@ -75,8 +83,12 @@ export default function SearchBar({ open, setOpen }: { open: boolean, setOpen: (
                                             <Input
                                                 type="search"
                                                 placeholder="Busque por jogadores. Use NOME#BR1"
-                                                className="pl-8 outline-none w-full py-0"
-                                                {...register('search')}
+                                                className="pl-8 outline-none w-full py-0 autofill:bg-background"
+                                                {...register('search', {
+                                                    onChange: (e) => {
+                                                        tryResult(e)
+                                                    },
+                                                })}
                                             />
                                         </div>
                                     </div>
@@ -103,6 +115,20 @@ export default function SearchBar({ open, setOpen }: { open: boolean, setOpen: (
                             <Separator className="bg-zinc-500" />
                             <div className="items-center justify-start text-center flex my-2">
                                 <h1 className="text-sm text-red-700">{errors.search.message}</h1>
+                            </div>
+                        </div>
+                    </DialogFooter>}
+                    {results && <DialogFooter>
+                        <div className="flex flex-col w-full gap-2 mb-2">
+                            <div className="flex flex-col items-center w-full justify-center mt-[-10px]">
+                                <Separator className="bg-zinc-500" />
+                            </div>
+                            <h1 className="flex justify-start mx-3 font-bold">Resultados:</h1>
+                            <div
+                                className="items-center justify-center text-center flex my-2 rounded-xl p-2 bg-background border mx-20 hover:border-white transition-all cursor-pointer"
+                                onClick={handleSubmit(searchQuery)}
+                            >
+                                <h1 className="text-white text-lg font-semibold">{results}</h1>
                             </div>
                         </div>
                     </DialogFooter>}
@@ -140,7 +166,7 @@ const DialogContent = React.forwardRef<
         <DialogPrimitive.Content
             ref={ref}
             className={cn(
-                "fixed left-[50%] top-[50%] z-50 grid w-full max-w-2xl translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-lg",
+                "fixed left-[50%] top-[50%] z-50 grid w-full max-w-2xl translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background shadow-lg duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-lg transition-transform",
                 className
             )}
             {...props}

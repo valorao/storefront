@@ -19,18 +19,10 @@ export default async function Item() {
     const session = await getServerSession();
     const GetStorefront = await getStorefront();
     const storefront = GetStorefront.data.items;
-    if (!session) {
+    if (!session || !storefront) {
         return (
             <div className="flex items-center text-center justify-center p-5 md:h-5 h-5 w-full font-bold text-2xl">
                 <ShieldAlert className="w-10 h-10 md:mr-2" /> Faça login para visualizar sua loja.
-                <LoginBtn />
-            </div>
-        )
-    }
-    if (!storefront) {
-        return (
-            <div className="flex items-center text-center justify-center md:h-5 h-5 w-full font-bold text-2xl">
-                <ShieldAlert className="w-10 h-10 mr-2" /> Faça login para visualizar sua loja.
                 <LoginBtn />
             </div>
         )
@@ -49,9 +41,9 @@ export default async function Item() {
                                     width={1300}
                                     height={800}
                                     alt={`Shop Item ${item.weaponInfo.displayName}`}
-                                    className="m-0 p-0 drop-shadow-[0_0_10px_rgba(0,0,0,1)] transform transition duration-300 group-hover:scale-90"
+                                    className="m-0 p-0 drop-shadow-[0_0_10px_rgba(0,0,0,1)] transform transition duration-300 object-contain group-hover:scale-90"
                                     draggable={false}
-                                    style={{ objectFit: 'contain', width: '330px', height: '100px' }}
+                                    style={{ width: '330px', height: '100px' }}
                                 />
                             </div>
                             <div className="flex justify-between flex-row mt-3 text-xl font-semibold transform transition duration-300 group-hover:scale-90">
@@ -70,9 +62,8 @@ export default async function Item() {
                             src={item.weaponInfo.contentTierInfo.displayIcon}
                             width={256}
                             height={256}
-                            objectFit="contain"
                             alt={`Shop Item ${item.weaponInfo.displayName} Tier Icon`}
-                            className="opacity-30 w-64 h-64 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_10px_rgba(0,0,0,1)] transition duration-300 group-hover:scale-90"
+                            className="opacity-30 object-contain w-64 h-64 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_10px_rgba(0,0,0,1)] transition duration-300 group-hover:scale-90"
                             draggable={false}
                         />
                     </div>

@@ -5,7 +5,7 @@ import Loading from "./loading";
 export default async function StoreFrontBundles({ params }: { params: { profile: string[] } }) {
     generateMetadata({ params })
     return (
-        <div>
+        <div className="md:mt-0 mt-5">
             <Suspense fallback={<Loading />}>
                 <PlayerProfile params={params} />
             </Suspense >

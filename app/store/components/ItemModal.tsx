@@ -47,9 +47,8 @@ export default function ItemDialog({ dialogSize, itemPrice, itemTitle, itemVideo
                     src={itemDisplayImage}
                     alt={`Shop Item ${itemTitle}`}
                     layout="fill"
-                    className="object-cover"
+                    className="object-contain"
                     draggable={false}
-                    objectFit="contain"
                 />
             </div>
         );

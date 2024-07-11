@@ -20,6 +20,9 @@ const config = {
       },
     },
     extend: {
+      transitionProperty: {
+        "height": "height"
+      },
       fontFamily: {
         sans: ["Inter var", ...fontFamily.sans],
       },
@@ -65,18 +68,18 @@ const config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          "from": { "height": "0" },
+          "to": { "height": "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          "from": { "height": "var(--radix-accordion-content-height)" },
+          "to": { "height": "0" },
         },
         "shine": {
-          from: { backgroundPosition: '200% 0' },
-          to: { backgroundPosition: '-200% 0' },
+          from: { "backgroundPosition": '200% 0' },
+          to: { "backgroundPosition": '-200% 0' },
         },
-        shimmer: {
+        "shimmer": {
           "0%, 90%, 100%": {
             "background-position": "calc(-100% - var(--shimmer-width)) 0",
           },
@@ -100,6 +103,11 @@ const config = {
             "background-position": "0% 0%",
           },
         },
+        "skeleton-loading": {
+          "to": {
+            "backgroundPositionX": "-200%"
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -107,6 +115,7 @@ const config = {
         "shine": "shine 8s ease-in-out infinite",
         "shimmer": "shimmer 8s infinite",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+        "skeleton-shine": "skeleton-loading 1.5s linear infinite",
       },
     },
   },
