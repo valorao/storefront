@@ -101,7 +101,7 @@ export const authOptions: NextAuthOptions = {
         unifiedProvider,
     ],
     callbacks: {
-        async jwt({ token, account, profile }: { token: JWT; user?: User; account?: any; profile?: any; }): Promise<JWT> {
+        async jwt({ token, account, profile, user }: { token: JWT; user?: User; account?: any; profile?: any; }): Promise<JWT> {
             const customToken = token as CustomJWT;
             if (account && profile) {
                 customToken.id = profile.id;
@@ -111,6 +111,14 @@ export const authOptions: NextAuthOptions = {
                 customToken.refreshToken = account.refresh_token;
                 customToken.accessToken = account.access_token;
             }
+
+            if (user) {
+                customToken.id = user.id;
+                customToken.valorantToken = (user as CustomUserProfile).valorantToken;
+                customToken.valorantPuuid = (user as CustomUserProfile).valorantPuuid;
+                customToken.valorantSsid = (user as CustomUserProfile).valorantSsid;
+            }
+
             if (!customToken.initialLoginTime) {
                 customToken.initialLoginTime = Math.floor(Date.now() / 1000);
                 customToken.exp = customToken.initialLoginTime + 3600;

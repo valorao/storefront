@@ -10,7 +10,7 @@ export async function GET(request: NextRequest, { params }: { params: { name: st
         const session = await getServerSession(authOptions);
         const { valorantPuuid } = (session?.user as { valorantPuuid?: string });
         if (session && valorantPuuid) {
-            search = await fetch(`https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/br/${valorantPuuid}?size=5`, {
+            search = await fetch(`https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/br/${valorantPuuid}?startIndex=5&endIndex=7`, {
                 method: 'GET',
                 headers: {
                     'accept': 'application/json',
