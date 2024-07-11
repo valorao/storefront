@@ -56,7 +56,7 @@ export async function GET(request: NextRequest, { params }: { params: { name: st
             headers: {
                 'accept': 'application/json',
                 'Authorization': `${process.env.HENRIK_API_KEY}`
-            },
+            }, next: { revalidate: 3600 }
         })
             .then((res) => res.json());
         if (search.status === 200) {

@@ -62,12 +62,12 @@ export default async function PlayerProfile({ params }: { params: { profile: str
         <>
             <div className="max-h-screen flex flex-col items-center gap-3 md:mt-0">
                 <Badge>Ultima vez atualizado: {lastUpdated.toLocaleDateString('pt-BR')} às {lastUpdated.toLocaleTimeString('pt-BR')}</Badge>
-                <div className="flex w-96 h-24 dark:bg-[#1F222F] border-[#353847] border rounded-xl text-center items-center gap-2 mx-auto">
+                <div className="flex w-96 h-24 dark:bg-zinc-900 border-zinc-600 border rounded-xl text-center items-center gap-2 mx-auto">
                     <div className="w-14 h-14 rounded-xl justify-start flex mx-auto">
                         <Image src={resp.searchData.data.card.small} alt="Profile Picture" className="object-contain" width={128} height={128} />
                     </div>
                     <h1 className="font-bold text-xl">{resp.searchData.data.name} # {resp.searchData.data.tag}</h1>
-                    <Separator orientation="vertical" />
+                    <Separator orientation="vertical" className="bg-zinc-600 my-2 mx-2" />
                     <div className="flex flex-col justify-center items-center text-center gap-1 mx-auto">
                         <h1 className="text-xl">{rankInfo.searchData.data.currenttierpatched}</h1>
                         <Image
