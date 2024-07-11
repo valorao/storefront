@@ -13,6 +13,7 @@ interface UserInfo {
 interface ValorantIntegration {
     token: string;
     puuid: string;
+    ssid: string;
 }
 
 interface Profile {
@@ -23,6 +24,7 @@ interface Profile {
 interface CustomUserProfile extends User {
     valorantToken: string;
     valorantPuuid: string;
+    valorantSsid: string;
 }
 
 interface CustomSession extends Session {
@@ -33,6 +35,7 @@ interface CustomJWT extends JWT {
     id?: string;
     valorantToken?: string;
     valorantPuuid?: string;
+    valorantSsid?: string;
     exp?: number;
     initialLoginTime?: number;
 }
@@ -88,6 +91,7 @@ const unifiedProvider: OAuthConfig<any> = {
             image: profile.userInfo.profilePicture,
             valorantToken: profile.valorantIntegration.token,
             valorantPuuid: profile.valorantIntegration.puuid,
+            valorantSsid: profile.valorantIntegration.ssid,
         };
     },
 };
@@ -97,14 +101,31 @@ export const authOptions: NextAuthOptions = {
         unifiedProvider,
     ],
     callbacks: {
+        async jwt({ token, account, profile }: { token: JWT; user?: User; account?: any; profile?: any; }): Promise<JWT> {
+            const customToken = token as CustomJWT;
+            if (account && profile) {
+                customToken.id = profile.id;
+                customToken.valorantToken = profile.valorantIntegration.token;
+                customToken.valorantPuuid = profile.valorantIntegration.puuid;
+                customToken.valorantSsid = profile.valorantIntegration.ssid;
+                customToken.refreshToken = account.refresh_token;
+                customToken.accessToken = account.access_token;
+            }
+            if (!customToken.initialLoginTime) {
+                customToken.initialLoginTime = Math.floor(Date.now() / 1000);
+                customToken.exp = customToken.initialLoginTime + 3600;
+            }
+
+            return customToken;
+        },
         async session({ session, token }: { session: Session; token: JWT }): Promise<Session> {
             const customSession = session as CustomSession;
             const customToken = token as CustomJWT;
-
             if (customSession.user) {
                 customSession.user.id = customToken.id ?? '';
                 customSession.user.valorantToken = customToken.valorantToken ?? '';
                 customSession.user.valorantPuuid = customToken.valorantPuuid ?? '';
+                customSession.user.valorantSsid = customToken.valorantSsid ?? '';
             }
 
             if (customToken.exp) {
@@ -112,22 +133,6 @@ export const authOptions: NextAuthOptions = {
             }
 
             return customSession;
-        },
-        async jwt({ token, user, account, isNewUser }: { token: JWT; user?: User; account?: any; isNewUser?: boolean }): Promise<JWT> {
-            const customToken = token as CustomJWT;
-
-            if (user) {
-                customToken.id = user.id;
-                customToken.valorantToken = (user as CustomUserProfile).valorantToken;
-                customToken.valorantPuuid = (user as CustomUserProfile).valorantPuuid;
-            }
-
-            if (!customToken.initialLoginTime) {
-                customToken.initialLoginTime = Math.floor(Date.now() / 1000);
-                customToken.exp = customToken.initialLoginTime + 3600;
-            }
-
-            return customToken;
         },
     },
     session: {
