@@ -1,4 +1,4 @@
-import { Clock9, Search, ShieldAlert } from "lucide-react";
+import { Clock9, RotateCcw, Search, ShieldAlert } from "lucide-react";
 import { headers } from "next/headers";
 import { Badge } from "@/app/components/ui/badge";
 import Image from "next/image";
@@ -7,7 +7,6 @@ import LoginBtn from "@/app/store/components/ClientActions";
 import PlayerHistory from "./PlayerHistory";
 import { OpenSearchBar } from "@/app/components/navigation/openSearchBar";
 import { Separator } from "@/app/components/ui/separator";
-import LastMatchesSVG from "./lastMatchesSVG";
 
 export default async function PlayerProfile({ params }: { params: { profile: string[] } }) {
     const session = await getServerSession();
@@ -64,8 +63,12 @@ export default async function PlayerProfile({ params }: { params: { profile: str
                     <h1 className="font-bold text-xl">{resp.searchData.data.name} # {resp.searchData.data.tag}</h1>
                 </div>
                 <div className="text-center items-center justify-center flex flex-col gap-4">
-                    {/* <h1 className="font-bold text-2xl mb-4">Últimas partidas:</h1> */}
-                    <Badge variant="secondary" className="p-3"><Clock9 className="size-4 mr-1" />Últimas Partidas</Badge>
+                    <div className="flex text-center justify-center flex-row gap-2">
+                        <Badge variant="secondary" className="p-3"><Clock9 className="size-4 mr-1" />Últimas Partidas</Badge>
+                        <Badge variant="secondary" className="p-3 flex items-center justify-center text-center rounded-full hover:animate-spinning-spin cursor-pointer">
+                            <RotateCcw className="size-4 delay-1000" />
+                        </Badge>
+                    </div>
                     <PlayerHistory params={params} />
                 </div>
             </div>

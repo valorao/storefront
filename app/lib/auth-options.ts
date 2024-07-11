@@ -27,7 +27,7 @@ interface CustomUserProfile extends User {
     valorantSsid: string;
 }
 
-interface CustomSession extends Session {
+export interface CustomSession extends Session {
     user: CustomUserProfile;
 }
 
@@ -104,12 +104,10 @@ export const authOptions: NextAuthOptions = {
         async jwt({ token, account, profile, user }: { token: JWT; user?: User; account?: any; profile?: any; }): Promise<JWT> {
             const customToken = token as CustomJWT;
             if (account && profile) {
-                customToken.id = profile.id;
+                customToken.id = profile.userInfo.id.toString();
                 customToken.valorantToken = profile.valorantIntegration.token;
                 customToken.valorantPuuid = profile.valorantIntegration.puuid;
                 customToken.valorantSsid = profile.valorantIntegration.ssid;
-                customToken.refreshToken = account.refresh_token;
-                customToken.accessToken = account.access_token;
             }
 
             if (user) {

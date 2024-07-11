@@ -67,6 +67,14 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "spinning": {
+          "from": {
+            'transform': "rotate(360deg)"
+          },
+          "to": {
+            "transform": "rotate(0deg)"
+          }
+        },
         "accordion-down": {
           "from": { "height": "0" },
           "to": { "height": "var(--radix-accordion-content-height)" },
@@ -116,6 +124,7 @@ const config = {
         "shimmer": "shimmer 8s infinite",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
         "skeleton-shine": "skeleton-loading 1.5s linear infinite",
+        "spinning-spin": "spinning 2s linear forwards"
       },
     },
   },

@@ -1,10 +1,10 @@
-import { authOptions } from "@/app/lib/auth-options";
+import { authOptions, CustomSession } from "@/app/lib/auth-options";
 import { getServerSession } from "next-auth/next";
 import { headers } from "next/headers";
 import Image from "next/image";
 
 export default async function PlayerHistory({ params }: { params: { profile: string[] } }) {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions) as CustomSession;
     const isOnSelf = params.profile.length < 2 && params.profile.includes('self') && session
     let historyresp;
     if (isOnSelf) {
