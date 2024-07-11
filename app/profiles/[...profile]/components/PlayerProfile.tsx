@@ -27,8 +27,14 @@ export default async function PlayerProfile({ params }: { params: { profile: str
         )
     }
     let resp = await fetch(isSelf ?
-        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?forcerefresh=true&isOnSelf=true` :
-        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?forcerefresh=true&isOnSelf=false`, {
+        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?isOnSelf=true` :
+        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?isOnSelf=false`, {
+        method: "GET",
+        headers: new Headers(headers())
+    }).then((res) => res.ok && res.json());
+    let rankInfo = await fetch(isSelf ?
+        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/rank-info?isOnSelf=true` :
+        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/rank-info?isOnSelf=false`, {
         method: "GET",
         headers: new Headers(headers())
     }).then((res) => res.ok && res.json());
@@ -54,13 +60,24 @@ export default async function PlayerProfile({ params }: { params: { profile: str
     const lastUpdated = new Date(resp.searchData.data.last_update_raw * 1000);
     return (
         <>
-            <div className="min-h-full h-screen flex flex-col items-center gap-3 md:mt-0">
+            <div className="max-h-screen flex flex-col items-center gap-3 md:mt-0">
                 <Badge>Ultima vez atualizado: {lastUpdated.toLocaleDateString('pt-BR')} às {lastUpdated.toLocaleTimeString('pt-BR')}</Badge>
-                <div className="flex w-64 h-24 dark:bg-[#1F222F] border-[#353847] border rounded-xl text-center items-center gap-3">
-                    <div className="w-14 h-14 rounded-xl justify-start flex ml-4">
-                        <Image src={resp.searchData.data.card.small} alt="Profile Picture" objectFit="contain" width={128} height={128} />
+                <div className="flex w-96 h-24 dark:bg-[#1F222F] border-[#353847] border rounded-xl text-center items-center gap-2 mx-auto">
+                    <div className="w-14 h-14 rounded-xl justify-start flex mx-auto">
+                        <Image src={resp.searchData.data.card.small} alt="Profile Picture" className="object-contain" width={128} height={128} />
                     </div>
                     <h1 className="font-bold text-xl">{resp.searchData.data.name} # {resp.searchData.data.tag}</h1>
+                    <Separator orientation="vertical" />
+                    <div className="flex flex-col justify-center items-center text-center gap-1 mx-auto">
+                        <h1 className="text-xl">{rankInfo.searchData.data.currenttierpatched}</h1>
+                        <Image
+                            src={rankInfo.searchData.data.images.large}
+                            alt={`rank tier ${rankInfo.searchData.data.currenttierpatched} image`}
+                            className="object-contain size-12"
+                            width={256}
+                            height={256}
+                        />
+                    </div>
                 </div>
                 <div className="text-center items-center justify-center flex flex-col gap-4">
                     <div className="flex text-center justify-center flex-row gap-2">

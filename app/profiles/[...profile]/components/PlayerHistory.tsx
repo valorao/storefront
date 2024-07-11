@@ -38,7 +38,7 @@ export default async function PlayerHistory({ params }: { params: { profile: str
                     {
                         return (
                             <div
-                                className="flex md:w-96 w-[370px] rounded-xl relative overflow-hidden border-2"
+                                className="flex w-96 h-24 rounded-xl relative overflow-hidden border-2"
                                 key={data.metadata.matchid}>
                                 <div className="flex items-center justify-center">
                                     <div className={`absolute top-0 left-0 right-0 bottom-0 z-10 ${playerIsWinner ?
@@ -47,7 +47,7 @@ export default async function PlayerHistory({ params }: { params: { profile: str
                                     >
                                         <div className="flex items-center w-full h-full">
                                             <Image
-                                                className="rounded-xl size-14 min-h-full ml-3 object-contain overflow-hidden"
+                                                className="rounded-xl size-20 min-h-full ml-3 object-contain overflow-hidden"
                                                 src={searchedPlayer.assets.agent.small}
                                                 alt={getMapInfo.mapName}
                                                 width={256}
@@ -89,7 +89,7 @@ export default async function PlayerHistory({ params }: { params: { profile: str
                                         </div>
                                     </div>
                                     <Image
-                                        className="rounded-xl w-full object-contain overflow-hidden h-full z-0"
+                                        className="rounded-xl object-fill scale-105 overflow-hidden h-full z-0"
                                         src={getMapInfo.mapListViewIcon}
                                         alt={getMapInfo.mapName}
                                         width={456}
