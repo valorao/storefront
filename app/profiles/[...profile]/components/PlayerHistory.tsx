@@ -38,7 +38,7 @@ export default async function PlayerHistory({ params }: { params: { profile: str
                     {
                         return (
                             <div
-                                className="flex w-96 h-24 rounded-xl relative overflow-hidden border-2"
+                                className="flex md:w-96 w-[93%] h-24 rounded-xl relative overflow-hidden border-2"
                                 key={data.metadata.matchid}>
                                 <div className="flex items-center justify-center">
                                     <div className={`absolute top-0 left-0 right-0 bottom-0 z-10 ${playerIsWinner ?
