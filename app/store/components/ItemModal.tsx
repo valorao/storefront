@@ -1,9 +1,9 @@
 "use client";
 import VPIcon from "./valorant-points-image";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import Image from "next/image";
 import { Dispatch, SetStateAction, CSSProperties } from "react";
-import { Credenza, CredenzaClose, CredenzaContent, CredenzaDescription, CredenzaFooter, CredenzaHeader, CredenzaTitle } from "@/components/ui/credenza";
+import { Credenza, CredenzaClose, CredenzaContent, CredenzaDescription, CredenzaFooter, CredenzaHeader, CredenzaTitle } from "@/app/components/ui/credenza";
 
 type ItemDialogProps = {
     dialogSize: string;

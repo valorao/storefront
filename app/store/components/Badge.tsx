@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import AnimatedShinyText from "@/components/magicui/animated-shiny-text";
+import { cn } from "@/app/lib/utils";
+import AnimatedShinyText from "@/app/components/magicui/animated-shiny-text";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 

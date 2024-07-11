@@ -1,20 +1,17 @@
 import { Search, ShieldAlert } from "lucide-react";
 import { headers } from "next/headers";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/app/components/ui/badge";
 import Image from "next/image";
 import { getServerSession } from "next-auth/next";
 import LoginBtn from "@/app/store/components/ClientActions";
 import PlayerHistory from "./PlayerHistory";
-import { OpenSearchBar } from "@/components/navigation/openSearchBar";
-import { Separator } from "@/components/ui/separator";
-import { searchSchema } from "@/components/navigation/searchSchema";
-import { z } from 'zod';
-
-type SearchForm = z.infer<typeof searchSchema>;
+import { OpenSearchBar } from "@/app/components/navigation/openSearchBar";
+import { Separator } from "@/app/components/ui/separator";
 
 export default async function PlayerProfile({ params }: { params: { profile: string[] } }) {
     const session = await getServerSession();
-    if (params.profile.length < 2 && params.profile.includes('self') && !session) {
+    const isSelf = params.profile.length < 2 && params.profile.includes('self');
+    if (isSelf && !session) {
         return (
             <div className="flex items-center text-center justify-center p-5 md:h-5 h-5 w-full font-bold text-2xl">
                 <ShieldAlert className="w-10 h-10 md:mr-2" /> Faça login para continuar.
@@ -29,18 +26,14 @@ export default async function PlayerProfile({ params }: { params: { profile: str
             </div>
         )
     }
-    let resp;
-    if (params.profile.length < 2 && params.profile.includes('self')) {
-        resp = await fetch(`${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?forcerefresh=true&isOnSelf=true`, {
-            method: "GET",
-            headers: new Headers(headers()),
-        }).then((res) => res.json());
-    } else {
-        resp = await fetch(`${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?forcerefresh=true&isOnSelf=false`, {
-            method: "GET",
-        }).then((res) => res.json());
-    }
-    if (!resp.searchData.data) {
+    let resp = await fetch(isSelf ?
+        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?forcerefresh=true&isOnSelf=true` :
+        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?forcerefresh=true&isOnSelf=false`, {
+        method: "GET",
+        headers: headers()
+    }).then((res) => res.ok && res.json());
+
+    if (!resp) {
         return (
             <div className="flex items-center text-center justify-center p-5 md:h-5 h-5 w-full font-bold text-2xl md:mt-28 mt-10">
                 <div className="flex flex-col gap-4">
@@ -57,8 +50,8 @@ export default async function PlayerProfile({ params }: { params: { profile: str
             </div>
         )
     }
-    const lastUpdated = new Date(resp.searchData.data.last_update_raw * 1000);
 
+    const lastUpdated = new Date(resp.searchData.data.last_update_raw * 1000);
     return (
         <>
             <div className="min-h-full h-screen flex flex-col items-center gap-3 md:mt-0">

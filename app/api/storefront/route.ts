@@ -1,9 +1,15 @@
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
-import { authOptions } from "@/lib/auth-options";
+import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "@/app/lib/auth-options";
+import { getToken } from "next-auth/jwt";
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
     const session = await getServerSession(authOptions);
+    // const token = await getToken({
+    //     req,
+    //     secret: process.env.NEXTAUTH_SECRET ?? '',
+    // })
+    // console.log(token)
     if (session?.user) {
         const response = await fetch("https://rso.rtrampox.cloud/v1/riot/player/storefront", {
             method: "GET",

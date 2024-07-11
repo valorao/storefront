@@ -1,6 +1,6 @@
 "use client";
-import { Badge } from '@/components/ui/badge';
-import { Spinner } from '@/components/ui/spinner';
+import { Badge } from '@/app/components/ui/badge';
+import { Spinner } from '@/app/components/ui/spinner';
 import { Clock } from 'lucide-react';
 import { useEffect, useState } from 'react';
 

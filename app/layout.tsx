@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { cn } from "@/lib/utils";
+import { cn } from "@/app/lib/utils";
 import { Inter as FontSans } from "next/font/google"
 import { getServerSession } from "next-auth";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/app/components/theme-provider";
 import "./globals.css";
-import NavMenu from "@/components/navigation/NavMenu";
-import SessionProvider from "../components/SessionProvider"
+import NavMenu from "@/app/components/navigation/NavMenu";
+import SessionProvider from "./components/SessionProvider"
 
 const inter = FontSans({
   subsets: ["latin"],

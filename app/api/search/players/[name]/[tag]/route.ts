@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth-options";
+import { authOptions } from "@/app/lib/auth-options";
+import { storePlayerQuery } from '../../../functions/storeQuery';
 
 export async function GET(request: NextRequest, { params }: { params: { name: string; tag: string } }) {
     const { name, tag } = params;
@@ -17,10 +18,12 @@ export async function GET(request: NextRequest, { params }: { params: { name: st
                     'Authorization': `${process.env.HENRIK_API_KEY}`
                 }, next: { revalidate: 3600 }
             }).then((res) => res.json());
+            const storeAutocompletion = await storePlayerQuery(search.data.name, search.data.tag, true)
             return NextResponse.json({
                 request: new URL(request.url),
                 params: params,
                 forceRefresh: searchParams.get('forcerefresh'),
+                completionEngine: storeAutocompletion,
                 searchData: search,
                 puuid: valorantPuuid,
             })
@@ -56,11 +59,15 @@ export async function GET(request: NextRequest, { params }: { params: { name: st
             },
         })
             .then((res) => res.json());
-        return NextResponse.json({
-            request: new URL(request.url),
-            params: params,
-            forceRefresh: searchParams.get('forcerefresh'),
-            searchData: search,
-        })
+        if (search.status === 200) {
+            const storeAutocompletion = await storePlayerQuery(name, tag, true)
+            return NextResponse.json({
+                request: new URL(request.url),
+                params: params,
+                forceRefresh: searchParams.get('forcerefresh'),
+                completionEngine: storeAutocompletion,
+                searchData: search,
+            })
+        }
     }
 }
