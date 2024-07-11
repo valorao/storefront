@@ -7,12 +7,13 @@ export default function Loading() {
                 <Skeleton className="w-[370px] h-10" />
             </div>
             <div>
-                <Skeleton className="w-64 h-24" />
+                <Skeleton className="w-[370px] h-32" />
             </div>
             <div>
                 <Skeleton className="w-[370px] h-10" />
             </div>
             <div className="gap-3 flex flex-col">
+                <Skeleton className="w-[370px] h-32" />
                 <Skeleton className="w-[370px] h-32" />
                 <Skeleton className="w-[370px] h-32" />
                 <Skeleton className="w-[370px] h-32" />
