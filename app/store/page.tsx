@@ -1,7 +1,7 @@
 import CountdownPage from "./components/countdown";
 import Item from "./components/Item";
 import { Suspense } from "react";
-import { Spinner } from "@/app/components/ui/spinner";
+import { Spinner } from "@/components/ui/spinner";
 import { BundleCarousel } from "./components/BundleCarousel";
 import { BadgeMagicUI } from "./components/Badge";
 

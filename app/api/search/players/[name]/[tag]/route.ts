@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/lib/auth-options";
+import { authOptions } from "@/lib/auth-options";
 import { storePlayerQuery } from '../../../functions/storeQuery';
 
 export async function GET(request: NextRequest, { params }: { params: { name: string; tag: string } }) {

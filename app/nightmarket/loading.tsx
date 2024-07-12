@@ -1,4 +1,4 @@
-import { Spinner } from "@/app/components/ui/spinner";
+import { Spinner } from "@/components/components/ui/spinner";
 
 export default function Loading() {
     <div className="flex items-center justify-center md:h-40 h-20 w-full">

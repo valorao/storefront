@@ -1,12 +1,12 @@
 import { Clock9, RotateCcw, Search, ShieldAlert } from "lucide-react";
 import { headers } from "next/headers";
-import { Badge } from "@/app/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { getServerSession } from "next-auth/next";
 import LoginBtn from "@/app/store/components/ClientActions";
 import PlayerHistory from "./PlayerHistory";
-import { OpenSearchBar } from "@/app/components/navigation/openSearchBar";
-import { Separator } from "@/app/components/ui/separator";
+import { OpenSearchBar } from "@/components/navigation/openSearchBar";
+import { Separator } from "@/components/ui/separator";
 import { PlayerProfileImg, PlayerRankImg } from "./playerProfileImage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -62,17 +62,22 @@ export default async function PlayerProfile({ params }: { params: { profile: str
     return (
         <>
             <div className="max-h-screen flex flex-col items-center gap-3 md:mt-0">
-                <div className="flex md:w-[440px] w-[93%] h-24 dark:bg-zinc-900 border-zinc-600 border rounded-xl text-center items-center gap-2 mx-auto">
-                    <div className="w-14 h-14 rounded-xl justify-start flex mx-auto">
-                        <PlayerProfileImg searchData={resp.searchData} />
+                <div className="flex md:w-[440px] w-[93%] h-24 dark:bg-zinc-900 border-zinc-600 border justify-between md:px-10 px-7 rounded-xl text-center items-center md:gap-7 gap-3">
+                    <div className="flex flex-row gap-3 justify-center text-center items-center">
+                        <div className="md:size-16 size-12 rounded-xl justify-start flex">
+                            <PlayerProfileImg searchData={resp.searchData} />
+                        </div>
+                        <div className="flex flex-col">
+                            <h1 className="font-bold text-xl">{resp.searchData.data.name} #</h1>
+                            <h1 className="font-bold text-xl text-start">{resp.searchData.data.tag}</h1>
+                        </div>
                     </div>
-                    <h1 className="font-bold text-xl">{resp.searchData.data.name} # {resp.searchData.data.tag}</h1>
-                    <div className="w-[1px] bg-zinc-600 h-full"></div>
-                    <div className="flex flex-col justify-center items-center text-center gap-1 mx-auto">
+                    <div className="w-[1px] bg-zinc-600 h-full p-0" />
+                    <div className="flex flex-col justify-center items-center text-center gap-1">
                         <h1 className="md:text-xl text-sm">{
                             rankInfo.searchData.data && rankInfo.searchData.data.currenttierpatched
                                 ? rankInfo.searchData.data.currenttierpatched :
-                                'Sem classificação'}
+                                'Sem ranque'}
                         </h1>
                         <PlayerRankImg searchData={rankInfo.searchData} />
                     </div>

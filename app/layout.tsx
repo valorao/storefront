@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { cn } from "@/app/lib/utils";
-import { Inter as FontSans } from "next/font/google"
+import { cn } from "@/lib/utils";
+import { Poppins } from "next/font/google"
 import { getServerSession } from "next-auth";
-import { ThemeProvider } from "@/app/components/theme-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import NavMenu from "@/app/components/navigation/NavMenu";
-import SessionProvider from "./components/SessionProvider"
+import NavMenu from "@/components/navigation/NavMenu";
+import SessionProvider from "@/components/SessionProvider"
 
-const inter = FontSans({
+const inter = Poppins({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 })
 
 export const metadata: Metadata = {

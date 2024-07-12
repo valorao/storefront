@@ -1,16 +1,16 @@
 "use client";
-import { Badge } from "@/app/components/ui/badge";
+import { Badge } from "@/components/components/ui/badge";
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from "@/app/components/ui/accordion";
-import { Button } from "@/app/components/ui/button";
+} from "@/components/components/ui/accordion";
+import { Button } from "@/components/components/ui/button";
 import Link from "next/link";
 import CurseforgeIcon from "./curseforgeIcon";
 import ModrinthIcon from "./modrinthIcon";
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from "@/app/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from "@/components/components/ui/breadcrumb";
 
 export default function ODVModpack() {
     const betaBadge = (

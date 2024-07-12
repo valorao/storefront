@@ -1,4 +1,4 @@
-import { authOptions, CustomSession } from "@/app/lib/auth-options";
+import { authOptions, CustomSession } from "@/lib/auth-options";
 import { getServerSession } from "next-auth/next";
 import { headers } from "next/headers";
 import Image from "next/image";

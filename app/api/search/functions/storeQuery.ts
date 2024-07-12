@@ -1,4 +1,4 @@
-import prisma from "@/app/lib/prisma";
+import prisma from "@/lib/prisma";
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 
 export async function storePlayerQuery(name: string, tag: string, success: boolean) {

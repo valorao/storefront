@@ -8,17 +8,17 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "@/app/components/ui/carousel";
-import { useMediaQuery } from "@/app/components/hooks/use-media-query";
+} from "@/components/ui/carousel";
+import { useMediaQuery } from "@/components/hooks/use-media-query";
 import { Sparkles } from "lucide-react";
-import { Badge } from "@/app/components/ui/badge";
-import { Spinner } from '@/app/components/ui/spinner';
+import { Badge } from "@/components/ui/badge";
+import { Spinner } from '@/components/ui/spinner';
 import { useEffect, useState } from 'react';
 import BundleDialog from "./BundleModal";
 import BundleCSRBtn from "./bundleCSR";
 import VPIcon from "./valorant-points-image";
-import GradualSpacing from "@/app/components/magicui/gradual-spacing";
-import ShineBorder from "@/app/components/magicui/shine-border";
+import GradualSpacing from "@/components/magicui/gradual-spacing";
+import ShineBorder from "@/components/magicui/shine-border";
 
 interface Bundle {
     bundle_uuid?: string;

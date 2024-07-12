@@ -1,4 +1,4 @@
-import prisma from '@/app/lib/prisma';
+import prisma from '@/lib/prisma';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
 import { NextRequest, NextResponse } from 'next/server';
 

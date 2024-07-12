@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "@/app/lib/auth-options";
+import { authOptions } from "@/lib/auth-options";
 import { getToken } from "next-auth/jwt";
 
 export const GET = async (req: NextRequest) => {
