@@ -7,6 +7,7 @@ import LoginBtn from "@/app/store/components/ClientActions";
 import PlayerHistory from "./PlayerHistory";
 import { OpenSearchBar } from "@/app/components/navigation/openSearchBar";
 import { Separator } from "@/app/components/ui/separator";
+import { PlayerProfileImg, PlayerRankImg } from "./playerProfileImage";
 
 export default async function PlayerProfile({ params }: { params: { profile: string[] } }) {
     const session = await getServerSession();
@@ -45,7 +46,7 @@ export default async function PlayerProfile({ params }: { params: { profile: str
                 <div className="flex flex-col gap-4">
                     <h1 className="flex items-center text-center">
                         <ShieldAlert className="w-10 h-10 md:mr-2" />
-                        Não encontramos um jogador com o RiotID {params.profile[0]}#{params.profile[1]}.
+                        Não encontramos um jogador com o RiotID {decodeURI(params.profile[0])}#{decodeURI(params.profile[1])}.
                     </h1>
                     <div className="flex items-center justify-center">
                         <OpenSearchBar className="flex items-center gap-1" variant="expandIcon">
@@ -57,26 +58,22 @@ export default async function PlayerProfile({ params }: { params: { profile: str
         )
     }
 
-    const lastUpdated = new Date(resp.searchData.data.last_update_raw * 1000);
     return (
         <>
             <div className="max-h-screen flex flex-col items-center gap-3 md:mt-0">
-                <Badge>Ultima vez atualizado: {lastUpdated.toLocaleDateString('pt-BR')} às {lastUpdated.toLocaleTimeString('pt-BR')}</Badge>
-                <div className="flex md:w-96 w-[93%] h-24 dark:bg-zinc-900 border-zinc-600 border rounded-xl text-center items-center gap-2 mx-auto">
+                <div className="flex md:w-[440px] w-[93%] h-24 dark:bg-zinc-900 border-zinc-600 border rounded-xl text-center items-center gap-2 mx-auto">
                     <div className="w-14 h-14 rounded-xl justify-start flex mx-auto">
-                        <Image src={resp.searchData.data.card.small} alt="Profile Picture" className="object-contain" width={128} height={128} />
+                        <PlayerProfileImg searchData={resp.searchData} />
                     </div>
                     <h1 className="font-bold text-xl">{resp.searchData.data.name} # {resp.searchData.data.tag}</h1>
                     <div className="w-[1px] bg-zinc-600 h-full"></div>
                     <div className="flex flex-col justify-center items-center text-center gap-1 mx-auto">
-                        <h1 className="md:text-xl text-sm">{rankInfo.searchData.data.currenttierpatched}</h1>
-                        <Image
-                            src={rankInfo.searchData.data.images.large}
-                            alt={`rank tier ${rankInfo.searchData.data.currenttierpatched} image`}
-                            className="object-contain size-12"
-                            width={256}
-                            height={256}
-                        />
+                        <h1 className="md:text-xl text-sm">{
+                            rankInfo.searchData.data && rankInfo.searchData.data.currenttierpatched
+                                ? rankInfo.searchData.data.currenttierpatched :
+                                'Sem classificação'}
+                        </h1>
+                        <PlayerRankImg searchData={rankInfo.searchData} />
                     </div>
                 </div>
                 <div className="text-center items-center justify-center flex flex-col gap-4">

@@ -27,7 +27,6 @@ type SearchForm = z.infer<typeof searchSchema>;
 export default function SearchBar({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) {
     const queryParams = useSearchParams();
     const router = useRouter();
-    // const [value, setValue] = useState('');
     const [results, setResults] = useState<searchResults | null>(null);
     const [formInput, setFormInput] = useState('');
     const { register, handleSubmit, formState: { errors }, clearErrors, setValue } = useForm<SearchForm>({
@@ -55,7 +54,7 @@ export default function SearchBar({ open, setOpen }: { open: boolean; setOpen: (
         }
 
         debounceTimeout.current = setTimeout(async () => {
-            if (formInput.length > 3) {
+            if (formInput.trim().length > 3) {
                 try {
                     const getSearchCompletions = await fetch(`/api/searchEngine?q=${formInput}`).then((res) => res.json());
                     setResults(getSearchCompletions);
@@ -165,7 +164,7 @@ export default function SearchBar({ open, setOpen }: { open: boolean; setOpen: (
                                 <Separator className="bg-zinc-500" />
                             </div>
                             <h1 className="flex justify-start mx-3 font-semibold">Sugestões:</h1>
-                            {results.searchResponse.map((e) => (
+                            {results.searchResponse && results.searchResponse.map((e) => (
                                 <div
                                     key={e.id}
                                     className="items-center justify-center text-center flex rounded-xl p-2 bg-background border mx-20 hover:border-white transition-all cursor-pointer"

@@ -65,7 +65,7 @@ export default function NavMenu() {
                                 "text-muted-foreground transition-colors hover:text-foreground text-nowrap"
                         }
                     >
-                        Perfis: {pathname.includes('self') ? 'Seu Perfil' : pathname.slice().split('/')[2] + '#' + pathname.slice().split('/')[3]}
+                        Perfis: {pathname.includes('self') ? 'Seu Perfil' : decodeURI(pathname.slice().split('/')[2]) + '#' + decodeURI(pathname.slice().split('/')[3])}
                     </h1>}
                 </nav>
 

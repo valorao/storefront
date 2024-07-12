@@ -2,6 +2,7 @@ import { authOptions, CustomSession } from "@/app/lib/auth-options";
 import { getServerSession } from "next-auth/next";
 import { headers } from "next/headers";
 import Image from "next/image";
+import { number } from "zod";
 
 export default async function PlayerHistory({ params }: { params: { profile: string[] } }) {
     const session = await getServerSession(authOptions) as CustomSession;
@@ -22,11 +23,10 @@ export default async function PlayerHistory({ params }: { params: { profile: str
     return (
         <>
             <div className="flex flex-col gap-3 items-center justify-center text-center">
-                {historyresp.searchData.data.map(async (data: any) => {
+                {historyresp.searchData.data.length > 1 ? historyresp.searchData.data.map(async (data: any) => {
                     const searchedPlayer = isOnSelf ?
                         data.players.all_players.find((player: any) => player.puuid === (session.user?.valorantPuuid)) :
-                        data.players.all_players.find((player: any) => player.name.toLowerCase() === params.profile[0].toLowerCase());
-
+                        data.players.all_players.find((player: any) => player.name.toLowerCase() === decodeURI(params.profile[0].toLowerCase()));
                     const winnerTeam = data.teams.blue.has_won ? 'blue' : 'red';
                     const redTeamScore = data.teams.red.rounds_won;
                     const blueTeamScore = data.teams.blue.rounds_won;
@@ -38,7 +38,7 @@ export default async function PlayerHistory({ params }: { params: { profile: str
                     {
                         return (
                             <div
-                                className="flex md:w-96 w-[93%] h-24 rounded-xl relative overflow-hidden border-2"
+                                className="flex md:w-[440px] w-[93%] h-24 rounded-xl relative overflow-hidden border-2"
                                 key={data.metadata.matchid}>
                                 <div className="flex items-center justify-center">
                                     <div className={`absolute top-0 left-0 right-0 bottom-0 z-10 ${playerIsWinner ?
@@ -62,12 +62,14 @@ export default async function PlayerHistory({ params }: { params: { profile: str
                                                     {data.metadata.map}
                                                 </h1>
 
-                                                <h1 className="text-white justify-start flex ml-3">
-                                                    {playerTeam === 'red' ?
-                                                        `${redTeamScore} : ${blueTeamScore}` :
-                                                        `${blueTeamScore} : ${redTeamScore}`
-                                                    }
-                                                </h1>
+                                                {redTeamScore &&
+                                                    <h1 className="text-white justify-start flex ml-3">
+                                                        {playerTeam === 'red' ?
+                                                            `${redTeamScore} : ${blueTeamScore}` :
+                                                            `${blueTeamScore} : ${redTeamScore}`
+                                                        }
+                                                    </h1>
+                                                }
 
                                             </div>
                                             <div className="flex flex-col w-full h-full items-center justify-center">
@@ -80,10 +82,10 @@ export default async function PlayerHistory({ params }: { params: { profile: str
                                             </div>
                                             <div className="flex flex-col max-w-24 h-full items-center text-center justify-center mr-3">
                                                 <h1 className="text-white items-center text-center justify-center flex font-semibold">
-                                                    HS%
+                                                    {!isNaN(headshotPercentage) ? 'HS%' : ''}
                                                 </h1>
                                                 <h1 className="text-white items-center text-center justify-center flex">
-                                                    {`${headshotPercentage.toFixed(2)}%`}
+                                                    {!isNaN(headshotPercentage) ? `${headshotPercentage.toFixed(2)}%` : ''}
                                                 </h1>
                                             </div>
                                         </div>
@@ -100,7 +102,9 @@ export default async function PlayerHistory({ params }: { params: { profile: str
                         )
 
                     }
-                })}
+                }) : <div>
+                    <h1>Nenhuma partida encontrada.</h1>
+                </div>}
             </div>
         </>
     )
