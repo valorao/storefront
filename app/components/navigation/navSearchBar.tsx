@@ -62,7 +62,7 @@ export default function SearchBar({ open, setOpen }: { open: boolean; setOpen: (
                     console.error("Failed to fetch search completions:", error);
                 }
             }
-        }, 700);
+        }, 500);
 
         return () => {
             if (debounceTimeout.current) {
@@ -159,11 +159,11 @@ export default function SearchBar({ open, setOpen }: { open: boolean; setOpen: (
                         </div>
                     </DialogFooter>}
                     {results && <DialogFooter>
-                        <div className="flex flex-col w-full gap-2 mb-4">
+                        <div className="flex flex-col w-full gap-3 mb-4">
                             <div className="flex flex-col items-center w-full justify-center mt-[-10px]">
                                 <Separator className="bg-zinc-500" />
                             </div>
-                            <h1 className="flex justify-start mx-3 font-semibold">Sugestões:</h1>
+                            {results.searchResponse && <h1 className="flex justify-start mx-3 font-semibold">Sugestões:</h1>}
                             {results.searchResponse && results.searchResponse.map((e) => (
                                 <div
                                     key={e.id}

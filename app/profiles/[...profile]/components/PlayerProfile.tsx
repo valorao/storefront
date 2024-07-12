@@ -8,6 +8,7 @@ import PlayerHistory from "./PlayerHistory";
 import { OpenSearchBar } from "@/app/components/navigation/openSearchBar";
 import { Separator } from "@/app/components/ui/separator";
 import { PlayerProfileImg, PlayerRankImg } from "./playerProfileImage";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default async function PlayerProfile({ params }: { params: { profile: string[] } }) {
     const session = await getServerSession();
@@ -83,7 +84,16 @@ export default async function PlayerProfile({ params }: { params: { profile: str
                             <RotateCcw className="size-4 delay-1000" />
                         </Badge>
                     </div>
-                    <PlayerHistory params={params} />
+                    <Tabs defaultValue="account" className="md:w-[440px] w-[93%]">
+                        <TabsList>
+                            <TabsTrigger value="account">Tudo</TabsTrigger>
+                            <TabsTrigger value="password" disabled>Competitivo</TabsTrigger>
+                            <TabsTrigger value="password" disabled>Mata-mata</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="account">
+                            <PlayerHistory params={params} />
+                        </TabsContent>
+                    </Tabs>
                 </div>
             </div>
         </>
