@@ -20,7 +20,7 @@ type BundleImages = {
 
 export default async function storefront() {
     let bundleImgs: BundleImages[] = [];
-    const bundles = await fetch(`${process.env.VERCEL_URL}/api/storefront/bundles`, {
+    const bundles = await fetch(`${process.env.NEXTAUTH_URL}/api/storefront/bundles`, {
         method: "GET",
     })
         .then((res) => res.json());
