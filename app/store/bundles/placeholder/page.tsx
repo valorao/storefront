@@ -4,7 +4,7 @@ export const metadata = {
 }
 
 export default async function StoreFrontBundles() {
-    const resp = await fetch(`${process.env.NEXTAUTH_URL}/api/storefront/bundles`, {
+    const resp = await fetch(`${process.env.VERCEL_URL}/api/storefront/bundles`, {
         method: "GET",
     })
         .then((res) => res.json());

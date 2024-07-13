@@ -7,7 +7,7 @@ import LoginBtn from "./ClientActions";
 import ItemCSRBtn from "./ItemCSR";
 
 async function getStorefront() {
-    const resp = await fetch(`${process.env.NEXTAUTH_URL || process.env.VERCEL}/api/storefront`, {
+    const resp = await fetch(`${process.env.VERCEL_URL}/api/storefront`, {
         method: "GET",
         headers: new Headers(headers()),
     })

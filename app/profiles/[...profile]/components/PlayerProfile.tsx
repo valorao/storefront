@@ -29,14 +29,14 @@ export default async function PlayerProfile({ params }: { params: { profile: str
         )
     }
     let resp = await fetch(isSelf ?
-        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?isOnSelf=true` :
-        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?isOnSelf=false`, {
+        `${process.env.VERCEL_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?isOnSelf=true` :
+        `${process.env.VERCEL_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}?isOnSelf=false`, {
         method: "GET",
         headers: new Headers(headers())
     }).then((res) => res.ok && res.json());
     let rankInfo = await fetch(isSelf ?
-        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/rank-info?isOnSelf=true` :
-        `${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/rank-info?isOnSelf=false`, {
+        `${process.env.VERCEL_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/rank-info?isOnSelf=true` :
+        `${process.env.VERCEL_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/rank-info?isOnSelf=false`, {
         method: "GET",
         headers: new Headers(headers())
     }).then((res) => res.ok && res.json());

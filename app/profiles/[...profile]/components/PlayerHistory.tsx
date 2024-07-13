@@ -9,13 +9,13 @@ export default async function PlayerHistory({ params }: { params: { profile: str
     const isOnSelf = params.profile.length < 2 && params.profile.includes('self') && session
     let historyresp;
     if (isOnSelf) {
-        historyresp = await fetch(`${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/history?forcerefresh=true&isOnSelf=true`, {
+        historyresp = await fetch(`${process.env.VERCEL_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/history?forcerefresh=true&isOnSelf=true`, {
             method: "GET",
             headers: new Headers(headers()),
         }).then((res) => res.json());
 
     } else {
-        historyresp = await fetch(`${process.env.NEXTAUTH_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/history?forcerefresh=true&isOnSelf=false`, {
+        historyresp = await fetch(`${process.env.VERCEL_URL}/api/search/players/${params.profile[0]}/${params.profile[1]}/history?forcerefresh=true&isOnSelf=false`, {
             method: "GET",
         }).then((res) => res.json());
     }
