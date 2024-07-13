@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import NavMenu from "@/components/navigation/NavMenu";
 import SessionProvider from "@/components/SessionProvider"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Poppins({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default async function RootLayout({
           "max-h-full max-w-full bg-background font-sans antialiased",
           inter.variable
         )}><SessionProvider session={session}>
+            <SpeedInsights />
             <ThemeProvider
               attribute="class"
               defaultTheme="dark"
